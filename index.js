@@ -16,4 +16,4 @@ app.set("view engine", "ejs");
 routes.index(app);
 
 //environmental variables on server or 3000
-http.listen(3000);
+http.listen(8000);
