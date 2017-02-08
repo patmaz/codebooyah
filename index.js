@@ -4,7 +4,8 @@ var app = express();
 var http = require('http').Server(app);
 
 //modules
-var routes = require("./modules/routes");
+var routes = require('./modules/routes');
+var mongo = require('./modules/mongo');
 
 //static files
 app.use('/static', express.static(__dirname + "/public"));
@@ -14,6 +15,7 @@ app.set("view engine", "ejs");
 
 //controllers
 routes.index(app);
+mongo(app);
 
 //environmental variables on server or 3000
 http.listen(8000);
