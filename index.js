@@ -14,7 +14,7 @@ app.use('/static', express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 //controllers
-routes.index(app);
+routes(app);
 mongo(app);
 
 //environmental variables on server or 3000
