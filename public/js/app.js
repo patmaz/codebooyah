@@ -26653,7 +26653,7 @@
 	        value: function getPromise() {
 	            var component = this;
 	            function getPromise() {
-	                var URL = 'https://jsonplaceholder.typicode.com/photos?_start=00&_end=05';
+	                var URL = '/mongo';
 
 	                if (window.Promise) {
 	                    return new Promise(function (resolve, reject) {
@@ -26774,7 +26774,7 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
-	                    this.props.properties.title
+	                    this.props.properties.body
 	                )
 	            );
 	        }
@@ -26852,7 +26852,7 @@
 	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(e) {
-	            this.setState(_defineProperty({}, event.target.name, event.target.value));
+	            this.setState(_defineProperty({}, e.target.name, e.target.value));
 	        }
 	    }, {
 	        key: 'render',
@@ -26862,7 +26862,7 @@
 	                { onSubmit: this.handleSubmit },
 	                _react2.default.createElement('input', { type: 'text', name: 'title', onChange: this.handleChange }),
 	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('textarea', { type: 'text', name: 'body', onChange: this.handleChange }),
+	                _react2.default.createElement('textarea', { type: 'text', name: "body", onChange: this.handleChange }),
 	                _react2.default.createElement('br', null),
 	                _react2.default.createElement('input', { type: 'submit', value: 'submit' })
 	            );

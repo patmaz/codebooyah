@@ -27,14 +27,14 @@ class ListForm extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({[event.target.name]: event.target.value});
+        this.setState({[e.target.name]: e.target.value});
     }
 
    render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <input type="text" name="title" onChange={this.handleChange} /><br />
-                <textarea type="text" name="body" onChange={this.handleChange} /><br />
+                <textarea type="text" name={"body"} onChange={this.handleChange} /><br />
                 <input type="submit" value="submit" />
             </form>
         )
