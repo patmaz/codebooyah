@@ -17,8 +17,6 @@ function mongo(app) {
         entry.save(function(err) {
             if (err) throw err;
         });
-
-        res.redirect('/mongo');
     });
 
     app.put('/mongo/:title', urlencodedParser, function(req, res) {
