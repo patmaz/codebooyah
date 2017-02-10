@@ -26646,9 +26646,7 @@
 	    }, {
 	        key: 'refreshState',
 	        value: function refreshState() {
-	            setTimeout(function () {
-	                this.getPromise();
-	            }, 3000);
+	            this.getPromise();
 	        }
 	    }, {
 	        key: 'getPromise',
@@ -26795,7 +26793,7 @@
 /* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -26825,18 +26823,42 @@
 	    }
 
 	    _createClass(ListForm, [{
-	        key: "render",
+	        key: 'sendAjax',
+	        value: function sendAjax() {
+	            var form = document.getElementById('entriesAdd'),
+	                formFileds = form.getElementsByClassName('formFiled');
+	            var formData = new FormData();
+	            for (var i = 0; i < formFileds.length; i++) {
+	                formData.append(formFileds[i].name, formFileds[i].value);
+	            }
+	        }
+	    }, {
+	        key: 'submitClick',
+	        value: function submitClick(e) {
+	            e.preventDefault();
+	            var self = this;
+	            self.sendAjax();
+	            setTimeout(function () {
+	                self.props.refreshClick();
+	            }, 1000);
+	        }
+	    }, {
+	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
-	                "form",
-	                { method: "post", action: "/mongo" },
-	                "title: ",
-	                _react2.default.createElement("input", { type: "text", id: "title", name: "title" }),
-	                _react2.default.createElement("br", null),
-	                "body: ",
-	                _react2.default.createElement("textarea", { type: "text", id: "body", name: "body" }),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement("input", { type: "submit", value: "submit", onClick: this.props.refreshClick })
+	                'form',
+	                { id: 'entriesAdd', method: 'post', action: '/mongo' },
+	                'title: ',
+	                _react2.default.createElement('input', { className: 'formFiled', type: 'text', id: 'title', name: 'title' }),
+	                _react2.default.createElement('br', null),
+	                'body: ',
+	                _react2.default.createElement('textarea', { className: 'formFiled', type: 'text', id: 'body', name: 'body' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('input', { type: 'submit', value: 'submit', onClick: function onClick(e) {
+	                        _this2.submitClick(e);
+	                    } })
 	            );
 	        }
 	    }]);

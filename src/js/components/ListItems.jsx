@@ -8,7 +8,7 @@ class ListItems extends React.Component {
     }
 
     refreshState() {
-        setTimeout(function(){ this.getPromise(); }, 3000);
+        this.getPromise();
     }
 
     getPromise() {
