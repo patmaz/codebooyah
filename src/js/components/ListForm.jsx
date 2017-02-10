@@ -9,6 +9,13 @@ class ListForm extends React.Component {
         for(var i=0; i<formFileds.length; i++) {
             formData.append(formFileds[i].name, formFileds[i].value);
         }
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+            if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            }
+        }
+        xmlHttp.open("post", "/mongo");
+        xmlHttp.send(formData);
     }
 
     submitClick(e) {
