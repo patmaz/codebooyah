@@ -1,10 +1,6 @@
 function routes(app) {
-    app.get('/', function(req, res){
+    app.get('*', function(req, res){
         res.render('index');
-    });
-
-    app.get('/add', function(req, res){
-        res.render('add');
     });
 }
 
