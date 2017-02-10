@@ -7,7 +7,7 @@ class ListForm extends React.Component {
             formFileds = form.getElementsByClassName('formFiled'),
             formData = new FormData(formFileds),
             req = new XMLHttpRequest();
-        req.open("POST", "/echo/html/");
+        req.open("POST", "/mongo");
         req.send(formData);
     }
 
