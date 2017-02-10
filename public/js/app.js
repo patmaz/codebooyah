@@ -26646,7 +26646,9 @@
 	    }, {
 	        key: 'refreshState',
 	        value: function refreshState() {
-	            this.getPromise();
+	            setTimeout(function () {
+	                this.getPromise();
+	            }, 3000);
 	        }
 	    }, {
 	        key: 'getPromise',
