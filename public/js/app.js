@@ -26653,7 +26653,7 @@
 	        value: function getPromise() {
 	            var component = this;
 	            function getPromise() {
-	                var URL = '/mongo';
+	                var URL = 'https://jsonplaceholder.typicode.com/photos?_start=00&_end=05';
 
 	                if (window.Promise) {
 	                    return new Promise(function (resolve, reject) {
@@ -26774,7 +26774,7 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
-	                    this.props.properties.body
+	                    this.props.properties.title
 	                )
 	            );
 	        }
@@ -26807,6 +26807,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -26816,49 +26818,53 @@
 	var ListForm = function (_React$Component) {
 	    _inherits(ListForm, _React$Component);
 
-	    function ListForm() {
+	    function ListForm(props) {
 	        _classCallCheck(this, ListForm);
 
-	        return _possibleConstructorReturn(this, (ListForm.__proto__ || Object.getPrototypeOf(ListForm)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (ListForm.__proto__ || Object.getPrototypeOf(ListForm)).call(this, props));
+
+	        _this.state = {
+	            title: '',
+	            body: ''
+	        };
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.handleSubmit = _this.handleSubmit.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(ListForm, [{
-	        key: 'sendAjax',
-	        value: function sendAjax() {
-	            var form = document.getElementById('entriesAdd'),
-	                formFileds = form.getElementsByClassName('formFiled'),
-	                formData = new FormData(formFileds),
-	                req = new XMLHttpRequest();
+	        key: 'handleSubmit',
+	        value: function handleSubmit(e) {
+	            e.preventDefault();
+	            var formData = new FormData(),
+	                req = new XMLHttpRequest(),
+	                self = this;
+	            formData.append('title', this.state.title);
+	            formData.append('body', this.state.body);
 	            req.open("POST", "/mongo");
 	            req.send(formData);
-	        }
-	    }, {
-	        key: 'submitClick',
-	        value: function submitClick(e) {
-	            e.preventDefault();
-	            var self = this;
-	            self.sendAjax();
+
 	            setTimeout(function () {
 	                self.props.refreshClick();
 	            }, 1000);
 	        }
 	    }, {
+	        key: 'handleChange',
+	        value: function handleChange(e) {
+	            this.setState(_defineProperty({}, event.target.name, event.target.value));
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
-
 	            return _react2.default.createElement(
 	                'form',
-	                { id: 'entriesAdd', method: 'post', action: '/mongo' },
-	                'title: ',
-	                _react2.default.createElement('input', { className: 'formFiled', type: 'text', id: 'title', name: 'title' }),
+	                { onSubmit: this.handleSubmit },
+	                _react2.default.createElement('input', { type: 'text', name: 'title', onChange: this.handleChange }),
 	                _react2.default.createElement('br', null),
-	                'body: ',
-	                _react2.default.createElement('textarea', { className: 'formFiled', type: 'text', id: 'body', name: 'body' }),
+	                _react2.default.createElement('textarea', { type: 'text', name: 'body', onChange: this.handleChange }),
 	                _react2.default.createElement('br', null),
-	                _react2.default.createElement('input', { type: 'submit', value: 'submit', onClick: function onClick(e) {
-	                        _this2.submitClick(e);
-	                    } })
+	                _react2.default.createElement('input', { type: 'submit', value: 'submit' })
 	            );
 	        }
 	    }]);

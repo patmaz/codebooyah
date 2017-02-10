@@ -2,28 +2,40 @@ import React from 'react';
 
 
 class ListForm extends React.Component {
-    sendAjax(){
-        var form = document.getElementById('entriesAdd'),
-            formFileds = form.getElementsByClassName('formFiled'),
-            formData = new FormData(formFileds),
-            req = new XMLHttpRequest();
-        req.open("POST", "/mongo");
-        req.send(formData);
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            body: ''
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    submitClick(e) {
+    handleSubmit(e) {
         e.preventDefault();
-        var self = this;
-        self.sendAjax();
+        var formData = new FormData(),
+            req = new XMLHttpRequest(),
+            self = this;
+        formData.append('title', this.state.title);
+        formData.append('body', this.state.body);
+        req.open("POST", "/mongo");
+        req.send(formData);
+
         setTimeout(function(){ self.props.refreshClick(); }, 1000);
+    }
+
+    handleChange(e) {
+        this.setState({[event.target.name]: event.target.value});
     }
 
    render() {
         return (
-            <form id="entriesAdd" method="post" action="/mongo">
-                title: <input className="formFiled" type="text" id="title" name="title" /><br />
-                body: <textarea className="formFiled" type="text" id="body" name="body" /><br />
-                <input type="submit" value="submit" onClick={(e) => {this.submitClick(e);}} />
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" name="title" onChange={this.handleChange} /><br />
+                <textarea type="text" name="body" onChange={this.handleChange} /><br />
+                <input type="submit" value="submit" />
             </form>
         )
    }
