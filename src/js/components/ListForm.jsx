@@ -15,15 +15,25 @@ class ListForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        var formData = new FormData(),
-            req = new XMLHttpRequest(),
-            self = this;
-        formData.append('title', this.state.title);
-        formData.append('body', this.state.body);
-        req.open("POST", "/mongo");
-        req.send(formData);
+        var self = this;
 
-        setTimeout(function(){ self.props.refreshClick(); }, 1000);
+        var data = {
+            title: this.state.title,
+            body: this.state.body
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/mongo',
+            data: data,
+            beforeSend: function() {console.log('before send')}
+        })
+        .done(function(data) {
+            self.props.refreshClick();
+        })
+        .fail(function(jqXhr) {
+            console.log('failed');
+        });
     }
 
     handleChange(e) {
