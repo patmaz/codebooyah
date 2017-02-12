@@ -1,0 +1,121 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url("https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Roboto+Mono:300|Roboto:100,100i");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+html {
+  height: 100%; }
+
+body {
+  min-height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: #141823; }
+
+a {
+  text-decoration: none;
+  color: #e48a28; }
+  a:hover {
+    text-decoration: underline; }
+
+p {
+  margin: 15px 0; }
+
+#app {
+  padding: 15px; }
+
+#intro {
+  text-align: center; }
+
+.code {
+  font-family: 'Roboto Mono', monospace; }
+
+.booyah {
+  font-family: 'Covered By Your Grace', cursive; }
+
+#header {
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 18px; }
+  #header .booyah {
+    color: #e48a28;
+    display: block;
+    margin-top: -15px;
+    margin-right: -12px;
+    font-size: 50px; }
+
+.gif-search__search {
+  margin: 15px auto;
+  display: block;
+  padding: 10px;
+  width: 400px; }
+  .gif-search__search .input__field {
+    border: none;
+    border-top: 1px solid #141823;
+    border-bottom: 1px solid #141823;
+    margin: 0 auto;
+    width: 120px;
+    display: block;
+    outline: none;
+    transition: all 1s;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    color: #141823;
+    padding: 10px; }
+    .gif-search__search .input__field:focus {
+      width: 100%;
+      border-top: 2px solid #e48a28;
+      border-bottom: 2px solid #e48a28; }
+
+.gif-search__gif {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+  min-height: 300px; }
+  .gif-search__gif img {
+    max-width: 100%; }

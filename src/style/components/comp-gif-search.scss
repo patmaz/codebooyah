@@ -1,0 +1,42 @@
+.gif-search {
+    &__search {
+        margin: 15px auto;
+        display: block;
+        padding: 10px;
+        width: 400px;
+
+        .input {
+            &__field {
+                border: none;
+                border-top: 1px solid $primary-color;
+                border-bottom: 1px solid $primary-color;
+                margin: 0 auto;
+                width: 120px;
+                display: block;
+                outline: none;
+                transition: all 1s;
+                font-size: 20px;
+                font-family: 'Roboto', sans-serif;
+                font-size: 20px;
+                color: $primary-color;
+                padding: 10px;
+
+                &:focus {
+                    width: 100%;
+                    border-top: 2px solid $extra-color;
+                    border-bottom: 2px solid $extra-color;
+                }
+            }
+        }
+    }
+
+    &__gif {
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+        min-height: 300px;
+        img {
+            max-width: 100%;
+        }
+    }
+}

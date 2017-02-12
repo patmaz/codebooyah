@@ -1,0 +1,60 @@
+@import './basic/reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Roboto+Mono:300|Roboto:100,100i');
+
+$primary-color: #141823;
+$extra-color: #e48a28;
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: $primary-color;
+}
+
+a {
+    text-decoration: none;
+    color: $extra-color;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+p {
+    margin: 15px 0;
+}
+
+#app {
+    padding: 15px;
+}
+
+#intro {
+    text-align: center;
+}
+
+.code {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.booyah {
+    font-family: 'Covered By Your Grace', cursive;
+}
+
+#header {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    .booyah {
+        color: $extra-color;
+        display: block;
+        margin-top: -15px;
+        margin-right: -12px;
+        font-size: 50px;
+    }
+}
+
+@import './components/comp-gif-search.scss';

@@ -3,13 +3,12 @@ import React from 'react';
 class Intro extends React.Component {
    render() {
         return (
-            <h1>{this.props.properties.header}</h1>
+            <div id="intro">
+                <p>Welcome to my JavaScript sandbox. Have fun with:</p>
+                <a href='#/gif'>gif search in react</a>
+            </div>
         )
    }
-}
-
-Intro.propTypes = {
-    properties: React.PropTypes.object.isRequired
 }
 
 export default Intro;

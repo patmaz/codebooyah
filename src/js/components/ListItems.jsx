@@ -48,7 +48,7 @@ class ListItems extends React.Component {
             }
         }
 
-        var promise = getPromise(0, 5);
+        var promise = getPromise();
         promise.then(function(data){
             console.log('Got data! Promise fulfilled');
             component.setState({data: JSON.parse(data)});

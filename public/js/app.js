@@ -64,18 +64,20 @@
 
 	var _ListItems2 = _interopRequireDefault(_ListItems);
 
+	var _SearchGifApp = __webpack_require__(237);
+
+	var _SearchGifApp2 = _interopRequireDefault(_SearchGifApp);
+
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var introProps = {
-	    header: 'code booyah! sooooooon'
-	};
-
-	_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: function component() {
-	        return _react2.default.createElement(_Intro2.default, { properties: introProps });
+	_reactDom2.default.render(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.hashHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: function component() {
+	        return _react2.default.createElement(_Intro2.default, null);
 	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/list', component: function component() {
 	        return _react2.default.createElement(_ListItems2.default, null);
+	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/gif', component: function component() {
+	        return _react2.default.createElement(_SearchGifApp2.default, null);
 	    } })), document.getElementById('app'));
 
 /***/ },
@@ -26581,19 +26583,24 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h1',
-	                null,
-	                this.props.properties.header
+	                'div',
+	                { id: 'intro' },
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Welcome to my JavaScript sandbox. Have fun with:'
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '#/gif' },
+	                    'gif search in react'
+	                )
 	            );
 	        }
 	    }]);
 
 	    return Intro;
 	}(_react2.default.Component);
-
-	Intro.propTypes = {
-	    properties: _react2.default.PropTypes.object.isRequired
-	};
 
 	exports.default = Intro;
 
@@ -26687,7 +26694,7 @@
 	                }
 	            }
 
-	            var promise = getPromise(0, 5);
+	            var promise = getPromise();
 	            promise.then(function (data) {
 	                console.log('Got data! Promise fulfilled');
 	                component.setState({ data: JSON.parse(data) });
@@ -26885,6 +26892,256 @@
 	};
 
 	exports.default = ListForm;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _SearchGifSearch = __webpack_require__(238);
+
+	var _SearchGifSearch2 = _interopRequireDefault(_SearchGifSearch);
+
+	var _SearchGifGif = __webpack_require__(239);
+
+	var _SearchGifGif2 = _interopRequireDefault(_SearchGifGif);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GIPHY_API_URL = 'http://api.giphy.com';
+	var GIPHY_PUB_KEY = 'dc6zaTOxFJmzC';
+
+	var SearchGifApp = function (_React$Component) {
+	    _inherits(SearchGifApp, _React$Component);
+
+	    function SearchGifApp(props) {
+	        _classCallCheck(this, SearchGifApp);
+
+	        var _this = _possibleConstructorReturn(this, (SearchGifApp.__proto__ || Object.getPrototypeOf(SearchGifApp)).call(this, props));
+
+	        _this.state = {
+	            loading: false,
+	            gif: {},
+	            searchingText: ''
+	        };
+
+	        _this.handleSearch = _this.handleSearch.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(SearchGifApp, [{
+	        key: 'handleSearch',
+	        value: function handleSearch(searchingText) {
+	            var self = this;
+	            self.setState({ loading: true });
+	            self.getGif(searchingText, function (gif) {
+	                self.setState({
+	                    loading: false,
+	                    gif: gif,
+	                    searchingText: searchingText
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'getGif',
+	        value: function getGif(searchingText, cb) {
+	            var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('GET', url);
+	            xhr.onload = function () {
+	                if (xhr.status === 200) {
+	                    var gif = JSON.parse(xhr.responseText).data;
+	                    var gif = {
+	                        url: gif.fixed_width_downsampled_url,
+	                        sourceUrl: gif.url
+	                    };
+	                    console.log(gif);
+	                    cb(gif);
+	                }
+	            };
+	            xhr.send();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'gif-search' },
+	                _react2.default.createElement(_SearchGifSearch2.default, { onSearch: this.handleSearch }),
+	                _react2.default.createElement(_SearchGifGif2.default, { loading: this.state.loading,
+	                    url: this.state.gif.url,
+	                    sourceUrl: this.state.gif.sourceUrl }),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Search app in react powered by ',
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: 'http://api.giphy.com/', target: '_blank' },
+	                        'giphy API'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SearchGifApp;
+	}(_react2.default.Component);
+
+	exports.default = SearchGifApp;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SearchGifSearch = function (_React$Component) {
+	    _inherits(SearchGifSearch, _React$Component);
+
+	    function SearchGifSearch(props) {
+	        _classCallCheck(this, SearchGifSearch);
+
+	        var _this = _possibleConstructorReturn(this, (SearchGifSearch.__proto__ || Object.getPrototypeOf(SearchGifSearch)).call(this, props));
+
+	        _this.state = { searchTerm: '' };
+
+	        _this.changeHandler = _this.changeHandler.bind(_this);
+	        _this.keyUpHandler = _this.keyUpHandler.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(SearchGifSearch, [{
+	        key: 'changeHandler',
+	        value: function changeHandler(e) {
+	            var searchTerm = e.target.value;
+	            this.setState({ searchTerm: searchTerm });
+	            this.props.onSearch(searchTerm);
+	        }
+	    }, {
+	        key: 'keyUpHandler',
+	        value: function keyUpHandler(e) {
+	            if (e.keyCode === 13) {
+	                this.props.onSearch(this.state.searchTerm);
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'gif-search__search' },
+	                _react2.default.createElement('input', { className: 'input__field',
+	                    type: 'text',
+	                    placeholder: 'search for gif',
+	                    onChange: this.changeHandler,
+	                    onKeyUp: this.keyUpHandler,
+	                    value: this.state.searchTerm })
+	            );
+	        }
+	    }]);
+
+	    return SearchGifSearch;
+	}(_react2.default.Component);
+
+	exports.default = SearchGifSearch;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GIPHY_LOADING_URL = 'http://www.ifmo.ru/images/loader.gif';
+
+	var SearchGifGif = function (_React$Component) {
+	    _inherits(SearchGifGif, _React$Component);
+
+	    function SearchGifGif() {
+	        _classCallCheck(this, SearchGifGif);
+
+	        return _possibleConstructorReturn(this, (SearchGifGif.__proto__ || Object.getPrototypeOf(SearchGifGif)).apply(this, arguments));
+	    }
+
+	    _createClass(SearchGifGif, [{
+	        key: 'getUrl',
+	        value: function getUrl() {
+	            return this.props.sourceUrl || GIPHY_LOADING_URL;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var url = this.props.loading ? GIPHY_LOADING_URL : this.props.url;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'gif-search__gif' },
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: this.getUrl(), target: '_blank' },
+	                    _react2.default.createElement('img', { id: 'gif', src: url })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SearchGifGif;
+	}(_react2.default.Component);
+
+	exports.default = SearchGifGif;
 
 /***/ }
 /******/ ]);
