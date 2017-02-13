@@ -1,0 +1,57 @@
+.chat {
+    text-align: center;
+
+    &__input-name {
+        border: none;
+        margin: 0 auto;
+        width: 120px;
+        display: block;
+        outline: none;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        color: $primary-color;
+        padding: 10px;
+    }
+
+    &__input-msg {
+        border: none;
+        border-top: 1px solid $primary-color;
+        border-bottom: 1px solid $primary-color;
+        margin: 10px auto;
+        width: 120px;
+        display: block;
+        outline: none;
+        transition: all 1s;
+        font-family: 'Roboto', sans-serif;
+        font-size: 10px;
+        color: $primary-color;
+        padding: 5px;
+
+        &:focus {
+            width: 90%;
+            border-top: 1px solid $extra-color;
+            border-bottom: 1px solid $extra-color;
+        }
+    }
+
+    &__btn {
+        border: 1px solid $primary-color;
+        background: transparent;
+        border-radius: 5px;
+    }
+
+    &__msgs {
+        margin: 15px;
+    }
+
+    &__msg {
+        display: block;
+        margin: 5px auto;
+        padding: 5px;
+        width: 70%;
+        animation-fill-mode: both;
+        &:nth-child(odd) {
+            background-color: #ebeef1;
+        }
+    }
+}

@@ -27,6 +27,10 @@ p {
     margin: 15px 0;
 }
 
+textarea {
+    resize: none;
+}
+
 #app {
     padding: 15px;
 }
@@ -58,3 +62,4 @@ p {
 }
 
 @import './components/comp-gif-search.scss';
+@import './components/comp-chat.scss';

@@ -68,6 +68,10 @@
 
 	var _SearchGifApp2 = _interopRequireDefault(_SearchGifApp);
 
+	var _Chat = __webpack_require__(240);
+
+	var _Chat2 = _interopRequireDefault(_Chat);
+
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -78,6 +82,8 @@
 	        return _react2.default.createElement(_ListItems2.default, null);
 	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/gif', component: function component() {
 	        return _react2.default.createElement(_SearchGifApp2.default, null);
+	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/chat', component: function component() {
+	        return _react2.default.createElement(_Chat2.default, null);
 	    } })), document.getElementById('app'));
 
 /***/ },
@@ -26593,7 +26599,13 @@
 	                _react2.default.createElement(
 	                    'a',
 	                    { href: '#/gif' },
-	                    'gif search in react'
+	                    'react gif search'
+	                ),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '#/chat' },
+	                    'simple node.js/react chat'
 	                )
 	            );
 	        }
@@ -27142,6 +27154,133 @@
 	}(_react2.default.Component);
 
 	exports.default = SearchGifGif;
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Chat = function (_React$Component) {
+	    _inherits(Chat, _React$Component);
+
+	    function Chat(props) {
+	        _classCallCheck(this, Chat);
+
+	        var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
+
+	        _this.state = {
+	            name: '',
+	            newMsg: '',
+	            allMsg: [],
+	            ws: new WebSocket('ws://localhost:8000', 'echo-protocol')
+	        };
+
+	        _this.typeMsg = _this.typeMsg.bind(_this);
+	        _this.typeName = _this.typeName.bind(_this);
+	        _this.sendMsg = _this.sendMsg.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(Chat, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var self = this;
+	            self.state.ws.addEventListener('open', function (e) {
+	                console.log(e);
+	            });
+	            self.state.ws.addEventListener('message', function (e) {
+	                var msg = e.data;
+	                var msgArr = self.state.allMsg;
+	                msgArr.unshift(msg);
+	                self.setState({ allMsg: msgArr });
+	            });
+	        }
+	    }, {
+	        key: 'typeMsg',
+	        value: function typeMsg(e) {
+	            this.setState({ newMsg: e.target.value });
+	        }
+	    }, {
+	        key: 'typeName',
+	        value: function typeName(e) {
+	            this.setState({ name: e.target.value });
+	        }
+	    }, {
+	        key: 'sendMsg',
+	        value: function sendMsg(e) {
+	            if (e.type === 'click' || e.type === 'keyup' && e.keyCode === 13) {
+	                this.state.ws.send(this.state.name + ' : ' + this.state.newMsg);
+	                this.setState({ newMsg: '' });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'chat' },
+	                _react2.default.createElement('input', { value: this.state.name,
+	                    type: 'text',
+	                    onChange: this.typeName,
+	                    placeholder: 'type your name',
+	                    className: 'chat__input-name' }),
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement('textarea', { value: this.state.newMsg,
+	                    onChange: this.typeMsg,
+	                    onKeyUp: this.sendMsg,
+	                    placeholder: 'type your message',
+	                    className: 'chat__input-msg' }),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.sendMsg,
+	                        className: 'chat__btn' },
+	                    ' SEND '
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    ' or press enter'
+	                ),
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: 'chat__msgs' },
+	                    this.state.allMsg.map(function (item, index) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { className: 'chat__msg', key: index },
+	                            ' ',
+	                            item,
+	                            ' '
+	                        );
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Chat;
+	}(_react2.default.Component);
+
+	exports.default = Chat;
 
 /***/ }
 /******/ ]);

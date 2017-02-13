@@ -64,6 +64,9 @@ a {
 p {
   margin: 15px 0; }
 
+textarea {
+  resize: none; }
+
 #app {
   padding: 15px; }
 
@@ -92,7 +95,7 @@ p {
   margin: 15px auto;
   display: block;
   padding: 10px;
-  width: 400px; }
+  width: 250px; }
   .gif-search__search .input__field {
     border: none;
     border-top: 1px solid #141823;
@@ -109,8 +112,8 @@ p {
     padding: 10px; }
     .gif-search__search .input__field:focus {
       width: 100%;
-      border-top: 2px solid #e48a28;
-      border-bottom: 2px solid #e48a28; }
+      border-top: 1px solid #e48a28;
+      border-bottom: 1px solid #e48a28; }
 
 .gif-search__gif {
   display: block;
@@ -119,3 +122,47 @@ p {
   min-height: 300px; }
   .gif-search__gif img {
     max-width: 100%; }
+
+.chat {
+  text-align: center; }
+  .chat__input-name {
+    border: none;
+    margin: 0 auto;
+    width: 120px;
+    display: block;
+    outline: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    color: #141823;
+    padding: 10px; }
+  .chat__input-msg {
+    border: none;
+    border-top: 1px solid #141823;
+    border-bottom: 1px solid #141823;
+    margin: 10px auto;
+    width: 120px;
+    display: block;
+    outline: none;
+    transition: all 1s;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    color: #141823;
+    padding: 5px; }
+    .chat__input-msg:focus {
+      width: 90%;
+      border-top: 1px solid #e48a28;
+      border-bottom: 1px solid #e48a28; }
+  .chat__btn {
+    border: 1px solid #141823;
+    background: transparent;
+    border-radius: 5px; }
+  .chat__msgs {
+    margin: 15px; }
+  .chat__msg {
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+    width: 70%;
+    animation-fill-mode: both; }
+    .chat__msg:nth-child(odd) {
+      background-color: #ebeef1; }
