@@ -27191,7 +27191,7 @@
 	            name: '',
 	            newMsg: '',
 	            allMsg: [],
-	            ws: new WebSocket('ws://localhost:8000', 'echo-protocol')
+	            ws: new WebSocket('ws://codebooyah.com/', 'echo-protocol')
 	        };
 
 	        _this.typeMsg = _this.typeMsg.bind(_this);
