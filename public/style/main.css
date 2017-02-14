@@ -134,12 +134,14 @@ textarea {
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
     color: #141823;
-    padding: 10px; }
+    padding: 5px;
+    border-top: 1px solid #141823;
+    border-bottom: 1px solid #141823; }
   .chat__input-msg {
     border: none;
     border-top: 1px solid #141823;
     border-bottom: 1px solid #141823;
-    margin: 10px auto;
+    margin: 0 auto 10px;
     width: 120px;
     display: block;
     outline: none;
