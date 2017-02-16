@@ -26955,16 +26955,18 @@
 	        };
 
 	        _this.handleSearch = _this.handleSearch.bind(_this);
+	        _this.getPromise = _this.getPromise.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(SearchGifApp, [{
 	        key: 'handleSearch',
 	        value: function handleSearch(searchingText) {
-	            var self = this;
-	            self.setState({ loading: true });
-	            self.getGif(searchingText, function (gif) {
-	                self.setState({
+	            var _this2 = this;
+
+	            this.setState({ loading: true });
+	            this.getGif(searchingText, function (gif) {
+	                _this2.setState({
 	                    loading: false,
 	                    gif: gif,
 	                    searchingText: searchingText
@@ -26972,23 +26974,53 @@
 	            });
 	        }
 	    }, {
+	        key: 'getPromise',
+	        value: function getPromise(url) {
+	            return new Promise(function (resolve, reject) {
+	                var req = new XMLHttpRequest();
+
+	                req.onload = function () {
+	                    // console.log(this);
+	                    if (req.status === 200) {
+	                        resolve(req.response);
+	                    } else {
+	                        reject(new Error(req.statusText));
+	                    }
+	                };
+
+	                // req.onload = function(){
+	                //     console.log(this);
+	                //     if(this.status === 200){
+	                //         resolve(this.response);
+	                //     } else {
+	                //         reject(new Error(this.statusText));
+	                //     }
+	                // }
+
+	                req.onerror = function () {
+	                    reject(new Error('XMLHttpRequest Error: ' + req.statusText));
+	                };
+
+	                req.open('GET', url);
+	                req.send();
+	            });
+	        }
+	    }, {
 	        key: 'getGif',
 	        value: function getGif(searchingText, cb) {
 	            var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
-	            var xhr = new XMLHttpRequest();
-	            xhr.open('GET', url);
-	            xhr.onload = function () {
-	                if (xhr.status === 200) {
-	                    var gif = JSON.parse(xhr.responseText).data;
-	                    var gif = {
-	                        url: gif.fixed_width_downsampled_url,
-	                        sourceUrl: gif.url
-	                    };
-	                    console.log(gif);
-	                    cb(gif);
-	                }
-	            };
-	            xhr.send();
+
+	            var promise = this.getPromise(url);
+	            promise.then(function (data) {
+	                var gif = JSON.parse(data).data;
+	                gif = {
+	                    url: gif.fixed_width_downsampled_url,
+	                    sourceUrl: gif.url
+	                };
+	                cb(gif);
+	            }).catch(function (err) {
+	                return console.log(err);
+	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -27173,6 +27205,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -27205,12 +27239,12 @@
 	        value: function componentDidMount() {
 	            var self = this;
 	            self.state.ws.addEventListener('open', function (e) {
-	                console.log(e);
+	                return console.log(e);
 	            });
 	            self.state.ws.addEventListener('message', function (e) {
 	                var msg = e.data;
 	                var msgArr = self.state.allMsg;
-	                msgArr.unshift(msg);
+	                msgArr = [msg].concat(_toConsumableArray(msgArr)); // msgArr.unshift(msg);
 	                self.setState({ allMsg: msgArr });
 	            });
 	        }

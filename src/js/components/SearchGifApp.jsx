@@ -16,37 +16,69 @@ class SearchGifApp extends React.Component {
         }
 
         this.handleSearch = this.handleSearch.bind(this);
+        this.getPromise = this.getPromise.bind(this);
     }
 
     handleSearch(searchingText) {
-        var self = this;
-        self.setState({loading: true});
-        self.getGif(searchingText, function(gif) {
-                self.setState({
+        this.setState({loading: true});
+        this.getGif(searchingText,
+            (gif) => {
+                this.setState({
                     loading: false,
                     gif: gif,
                     searchingText: searchingText
-                })
+                });
+            }
+        );
+    }
+
+    getPromise(url) {
+        return new Promise(
+            (resolve, reject) => {
+                const req = new XMLHttpRequest();
+
+                req.onload = () => {
+                    // console.log(this);
+                    if(req.status === 200){
+                        resolve(req.response);
+                    } else {
+                        reject(new Error(req.statusText));
+                    }
+                }
+
+                // req.onload = function(){
+                //     console.log(this);
+                //     if(this.status === 200){
+                //         resolve(this.response);
+                //     } else {
+                //         reject(new Error(this.statusText));
+                //     }
+                // }
+
+                req.onerror = () => {
+                    reject(new Error(`XMLHttpRequest Error: ${req.statusText}`));
+                }
+
+                req.open('GET', url);
+                req.send();
             }
         );
     }
 
     getGif(searchingText, cb) {
-        var url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var gif = JSON.parse(xhr.responseText).data;
-                var gif = {
+        const url = GIPHY_API_URL + '/v1/gifs/random?api_key=' + GIPHY_PUB_KEY + '&tag=' + searchingText;
+
+        const promise = this.getPromise(url);
+        promise
+            .then(data => {
+                let gif = JSON.parse(data).data;
+                gif = {
                     url: gif.fixed_width_downsampled_url,
                     sourceUrl: gif.url
                 };
-                console.log(gif);
                 cb(gif);
-            }
-        };
-        xhr.send();
+            })
+            .catch(err => console.log(err));
     }
 
     render() {

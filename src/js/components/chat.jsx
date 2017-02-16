@@ -17,15 +17,17 @@ class Chat extends React.Component{
 
     componentDidMount() {
         var self = this;
-        self.state.ws.addEventListener('open', function(e){
-            console.log(e);
-        });
-        self.state.ws.addEventListener('message', function(e) {
-            var msg = e.data;
-            var msgArr = self.state.allMsg;
-            msgArr.unshift(msg);
-            self.setState({allMsg: msgArr});
-        });
+        self.state.ws.addEventListener('open',
+            (e) => console.log(e)
+        );
+        self.state.ws.addEventListener('message',
+            (e) => {
+                var msg = e.data;
+                var msgArr = self.state.allMsg;
+                msgArr = [msg, ...msgArr]; // msgArr.unshift(msg);
+                self.setState({allMsg: msgArr});
+            }
+         );
     }
 
     typeMsg(e) {
