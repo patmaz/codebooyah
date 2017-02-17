@@ -55,6 +55,12 @@ body {
   font-size: 15px;
   color: #141823; }
 
+h2 {
+  font-size: 20px; }
+
+h3 {
+  font-size: 18px; }
+
 a {
   text-decoration: none;
   color: #e48a28; }
@@ -72,6 +78,8 @@ textarea {
 
 #intro {
   text-align: center; }
+  #intro li {
+    margin: 15px 0; }
 
 .code {
   font-family: 'Roboto Mono', monospace; }
@@ -168,3 +176,63 @@ textarea {
     animation-fill-mode: both; }
     .chat__msg:nth-child(odd) {
       background-color: #ebeef1; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.github-search h2 {
+  text-align: center;
+  margin-bottom: 15px; }
+
+.github-search label {
+  display: block;
+  text-align: center;
+  font-size: 10px; }
+
+.github-search input {
+  display: block;
+  margin: 5px auto;
+  border: none;
+  border-top: 1px solid #141823;
+  border-bottom: 1px solid #141823;
+  width: 120px;
+  display: block;
+  outline: none;
+  transition: all 1s;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: #141823;
+  padding: 10px; }
+  .github-search input:focus {
+    width: 200px;
+    border-top: 1px solid #e48a28;
+    border-bottom: 1px solid #e48a28; }
+
+.github-search__list {
+  margin: 30px 15px; }
+
+.github-search__list-item {
+  border-bottom: 1px solid #e1e5ee;
+  padding: 15px; }
+  .github-search__list-item:hover {
+    background-color: #f1f3f7; }
+  .github-search__list-item p {
+    font-size: 12px;
+    margin: 15px 0 0; }
+
+.github-search .zero-result {
+  color: #af2525;
+  margin-top: 30px; }
+
+.github-search .loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  margin: 15px auto; }

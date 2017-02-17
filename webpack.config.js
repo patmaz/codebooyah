@@ -14,7 +14,8 @@ var config = {
             loader: 'babel-loader',
 
             query: {
-               presets: ['es2015', 'react']
+               presets: ['es2015', 'react'],
+               plugins: ['transform-class-properties']
             }
          },
          {
@@ -23,7 +24,8 @@ var config = {
             loader: 'babel-loader',
 
             query: {
-               presets: ['es2015', 'react']
+               presets: ['es2015', 'react'],
+               plugins: ['transform-class-properties']
             }
          }
       ]

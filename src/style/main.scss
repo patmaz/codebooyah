@@ -15,6 +15,14 @@ body {
     color: $primary-color;
 }
 
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
 a {
     text-decoration: none;
     color: $extra-color;
@@ -37,6 +45,10 @@ textarea {
 
 #intro {
     text-align: center;
+
+    li {
+        margin: 15px 0;
+    }
 }
 
 .code {
@@ -63,3 +75,4 @@ textarea {
 
 @import './components/comp-gif-search.scss';
 @import './components/comp-chat.scss';
+@import './components/comp-guthub-search.scss';

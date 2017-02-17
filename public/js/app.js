@@ -72,6 +72,10 @@
 
 	var _Chat2 = _interopRequireDefault(_Chat);
 
+	var _GithubSearch = __webpack_require__(241);
+
+	var _GithubSearch2 = _interopRequireDefault(_GithubSearch);
+
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -84,6 +88,8 @@
 	        return _react2.default.createElement(_SearchGifApp2.default, null);
 	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/chat', component: function component() {
 	        return _react2.default.createElement(_Chat2.default, null);
+	    } }), _react2.default.createElement(_reactRouter.Route, { path: '/github', component: function component() {
+	        return _react2.default.createElement(_GithubSearch2.default, null);
 	    } })), document.getElementById('app'));
 
 /***/ },
@@ -26597,15 +26603,36 @@
 	                    'Welcome to my JavaScript sandbox. Have fun with:'
 	                ),
 	                _react2.default.createElement(
-	                    'a',
-	                    { href: '#/gif' },
-	                    'react gif search'
-	                ),
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: '#/chat' },
-	                    'simple node.js/react chat'
+	                    'ul',
+	                    null,
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#/gif' },
+	                            'react gif search'
+	                        ),
+	                        _react2.default.createElement('br', null)
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#/chat' },
+	                            'simple node.js/react chat'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#/github' },
+	                            'my github repositories search on react'
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -27315,6 +27342,253 @@
 	}(_react2.default.Component);
 
 	exports.default = Chat;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GithubSearchList = __webpack_require__(242);
+
+	var _GithubSearchList2 = _interopRequireDefault(_GithubSearchList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GitHubSearch = function (_React$Component) {
+	    _inherits(GitHubSearch, _React$Component);
+
+	    function GitHubSearch(props) {
+	        _classCallCheck(this, GitHubSearch);
+
+	        var _this = _possibleConstructorReturn(this, (GitHubSearch.__proto__ || Object.getPrototypeOf(GitHubSearch)).call(this, props));
+
+	        _this.onSubmitHandle = function (e) {
+	            e.preventDefault();
+	            _this.setState({
+	                loading: true,
+	                zeroResult: false
+	            });
+	            var searchText = _this.state.searchText;
+
+	            var url = 'https://api.github.com/search/code?q=' + searchText + '+in:file+language:js+language:jsx+user:patmaz';
+	            fetch(url).then(function (res) {
+	                return res.json();
+	            }).then(function (data) {
+	                _this.setState({
+	                    files: data.items,
+	                    loading: false
+	                });
+	                if (data.items.length === 0) {
+	                    _this.setState({ zeroResult: true });
+	                }
+	            });
+	        };
+
+	        _this.onChangeHandle = function (e) {
+	            _this.setState({ searchText: e.target.value });
+	        };
+
+	        _this.state = {
+	            searchText: '',
+	            files: [],
+	            loading: false,
+	            zeroResult: false
+	        };
+	        return _this;
+	    }
+
+	    _createClass(GitHubSearch, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'github-search' },
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'Search my js files on github'
+	                ),
+	                _react2.default.createElement(
+	                    'form',
+	                    { onSubmit: this.onSubmitHandle },
+	                    _react2.default.createElement(
+	                        'label',
+	                        { htmlFor: 'searchText' },
+	                        'Type the file name and press ENTER'
+	                    ),
+	                    _react2.default.createElement('input', {
+	                        type: 'text',
+	                        id: 'searchText',
+	                        onChange: this.onChangeHandle,
+	                        value: this.state.searchText })
+	                ),
+	                this.state.loading === true && _react2.default.createElement('div', { className: 'loader' }),
+	                this.state.zeroResult === true && _react2.default.createElement(
+	                    'div',
+	                    { className: 'zero-result' },
+	                    'Nope, try another phrase...'
+	                ),
+	                this.state.loading === false && _react2.default.createElement(_GithubSearchList2.default, { files: this.state.files })
+	            );
+	        }
+	    }]);
+
+	    return GitHubSearch;
+	}(_react2.default.Component);
+
+	exports.default = GitHubSearch;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GithubSearchListItem = __webpack_require__(243);
+
+	var _GithubSearchListItem2 = _interopRequireDefault(_GithubSearchListItem);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GitHubSearchList = function (_React$Component) {
+	    _inherits(GitHubSearchList, _React$Component);
+
+	    function GitHubSearchList() {
+	        _classCallCheck(this, GitHubSearchList);
+
+	        return _possibleConstructorReturn(this, (GitHubSearchList.__proto__ || Object.getPrototypeOf(GitHubSearchList)).apply(this, arguments));
+	    }
+
+	    _createClass(GitHubSearchList, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'ul',
+	                { className: 'github-search__list' },
+	                this.props.files.map(function (file, index) {
+	                    return _react2.default.createElement(_GithubSearchListItem2.default, { key: index, file: file });
+	                })
+	            );
+	        }
+	    }]);
+
+	    return GitHubSearchList;
+	}(_react2.default.Component);
+
+	GitHubSearchList.defaultProps = {
+	    files: []
+	};
+	GitHubSearchList.propTypes = {
+	    files: _react2.default.PropTypes.array.isRequired
+	};
+	exports.default = GitHubSearchList;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var GitHubSearchListItem = function (_React$Component) {
+	    _inherits(GitHubSearchListItem, _React$Component);
+
+	    function GitHubSearchListItem() {
+	        _classCallCheck(this, GitHubSearchListItem);
+
+	        return _possibleConstructorReturn(this, (GitHubSearchListItem.__proto__ || Object.getPrototypeOf(GitHubSearchListItem)).apply(this, arguments));
+	    }
+
+	    _createClass(GitHubSearchListItem, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'li',
+	                { className: 'github-search__list-item' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    this.props.file.name
+	                ),
+	                _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: this.props.file.html_url, target: '_blank' },
+	                        this.props.file.path
+	                    ),
+	                    ' from ',
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: this.props.file.repository.html_url, target: '_blank' },
+	                        this.props.file.repository.full_name
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return GitHubSearchListItem;
+	}(_react2.default.Component);
+
+	GitHubSearchListItem.defaultProps = {
+	    file: {}
+	};
+	GitHubSearchListItem.propTypes = {
+	    file: _react2.default.PropTypes.object.isRequired
+	};
+	exports.default = GitHubSearchListItem;
 
 /***/ }
 /******/ ]);

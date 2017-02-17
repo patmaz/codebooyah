@@ -5,8 +5,11 @@ class Intro extends React.Component {
         return (
             <div id="intro">
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
-                <a href='#/gif'>react gif search</a><br />
-                <a href='#/chat'>simple node.js/react chat</a>
+                <ul>
+                    <li><a href='#/gif'>react gif search</a><br /></li>
+                    <li><a href='#/chat'>simple node.js/react chat</a></li>
+                    <li><a href='#/github'>my github repositories search on react</a></li>
+                </ul>
             </div>
         )
    }
