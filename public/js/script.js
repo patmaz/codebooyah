@@ -1,0 +1,1 @@
+!function(o,t){function n(){var o=$(".about");o.on("click",function(o){$(o.target).hasClass("about")&&$(this).toggleClass("show")})}$(t).ready(n)}(window,document);

@@ -11,14 +11,22 @@ gulp.task('js', function() {
         .pipe(gulp.dest('public/js'));
 });
 
+gulp.task('js2', function() {
+    return gulp.src('src/js/script.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('public/js'));
+});
+
 gulp.task('styles', function () {
     return gulp.src('src/style/main.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer('last 2 version'))
+        .pipe(cssnano())
         .pipe(gulp.dest('public/style'))
 });
 
 gulp.task('default', ['styles'], function () {
     gulp.watch('src/style/**/*', ['styles']);
     gulp.watch('src/js/**/*', ['js']);
+    gulp.watch('src/js/script.js', ['js2']);
 });
