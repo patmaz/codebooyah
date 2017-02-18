@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "APP_ENV=prod nodemon index.js",
+    "start": "nodemon index.js",
+    "startnomongo": "APP_MONGO=no nodemon index.js",
+    "mongo": "mongod --dbpath ~/Documents/webdev/codebooyah/mongodb/",
     "prod1": "gulp nowatch --env prod",
     "prod2": "webpack --optimize-minimize"
   },

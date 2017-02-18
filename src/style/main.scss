@@ -1,6 +1,8 @@
 @import './basic/reset.scss';
 @import url('https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Roboto+Mono:300|Roboto:300,300i');
 
+@import 'animations';
+
 $primary-color: #141823;
 $extra-color: #e48a28;
 
@@ -39,6 +41,13 @@ textarea {
     resize: none;
 }
 
+button {
+    border: 1px solid $primary-color;
+    background: transparent;
+    border-radius: 5px;
+    margin: 15px;
+}
+
 #app {
     padding: 15px;
 }
@@ -69,10 +78,14 @@ textarea {
         display: block;
         position: absolute;
         left: 50%;
-        transform: translateX(-50%);
-        top: -10px;
+        margin-left: -25px;
+        top: -12px;
         font-size: 10px;
         cursor: pointer;
+        animation-name: rubberBand;
+        animation-duration: 5s;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
     }
 
     &:after {
@@ -111,15 +124,19 @@ textarea {
     &:before {
         content: "<";
         display: inline-block;
+        width: 30px;
+        text-align: right;
         position: absolute;
         left: 0;
         top: 0;
         opacity: 0;
-        transition: all 0.6s;
+        transition: all 1s;
     }
 
     &:after {
         content: "/>";
+        width: 30px;
+        text-align: left;
         display: inline-block;
         position: absolute;
         right: 0;
@@ -131,7 +148,7 @@ textarea {
     &:hover{
         &:before{
             opacity: 1;
-            left: -20px;
+            left: -30px;
         }
 
         &:after {
@@ -166,3 +183,4 @@ textarea {
 @import './components/comp-gif-search.scss';
 @import './components/comp-chat.scss';
 @import './components/comp-guthub-search.scss';
+@import './components/comp-stopwatch.scss';

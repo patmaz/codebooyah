@@ -9,6 +9,7 @@ class Intro extends React.Component {
                     <li><a href='#/gif'>react gif search</a><br /></li>
                     <li><a href='#/chat'>simple node.js/react chat</a></li>
                     <li><a href='#/github'>my github repositories search on react</a></li>
+                    <li><a href='#/stopwatch'>react stopwatch</a></li>
                 </ul>
             </div>
         )

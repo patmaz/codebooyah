@@ -6,7 +6,7 @@ var urlencodedParser = bodyParser.urlencoded({
 });
 
 function mongo(app) {
-    if (process.env.APP_ENV != 'prod') {
+    if (process.env.APP_MONGO != 'no') {
         mongoose.connect('mongodb://localhost:27017/mongo');
     }
 
