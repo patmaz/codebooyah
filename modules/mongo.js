@@ -6,7 +6,9 @@ var urlencodedParser = bodyParser.urlencoded({
 });
 
 function mongo(app) {
-    mongoose.connect('mongodb://localhost:27017/mongo');
+    if (process.env.APP_ENV != 'prod') {
+        mongoose.connect('mongodb://localhost:27017/mongo');
+    }
 
     app.post('/mongo', urlencodedParser, function(req, res) {
         var entry = new Entry({
