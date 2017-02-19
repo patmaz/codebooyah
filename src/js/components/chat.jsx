@@ -7,7 +7,7 @@ class Chat extends React.Component{
             name: '',
             newMsg: '',
             allMsg: [],
-            ws: new WebSocket('ws://codebooyah.com/', 'echo-protocol')
+            ws: new WebSocket('wss://codebooyah.com/', 'echo-protocol')
         }
 
         this.typeMsg = this.typeMsg.bind(this);
