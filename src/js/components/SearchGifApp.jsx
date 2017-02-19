@@ -2,7 +2,7 @@ import React from 'react';
 import SearchGifSearch from './SearchGifSearch.jsx';
 import SearchGifGif from './SearchGifGif.jsx';
 
-const GIPHY_API_URL = 'http://api.giphy.com';
+const GIPHY_API_URL = 'https://api.giphy.com';
 const GIPHY_PUB_KEY = 'dc6zaTOxFJmzC';
 
 class SearchGifApp extends React.Component {
