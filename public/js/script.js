@@ -1,1 +1,11 @@
-!function(o,t){function n(){var o=$(".about");o.on("click",function(o){$(o.target).hasClass("about")&&$(this).toggleClass("show")})}$(t).ready(n)}(window,document);
+(function(win, doc){
+    function start() {
+        var about = $('.about');
+        about.on('click', function(e){
+            if($(e.target).hasClass('about')) {
+                $(this).toggleClass('show');
+            }
+        });
+    }
+    $(doc).ready(start);
+})(window, document);
