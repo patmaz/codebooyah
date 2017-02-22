@@ -7,6 +7,7 @@ import SearchGifApp from './components/SearchGifApp.jsx';
 import Chat from './components/Chat.jsx';
 import GithubSearch from './components/GithubSearch.jsx';
 import Stopwatch from './components/Stopwatch.jsx';
+import ToDo from './comp-todo/containers/App.jsx';
 
 ReactDOM.render(
     <Router history={hashHistory}>
@@ -16,5 +17,6 @@ ReactDOM.render(
         <Route path='/chat' component={() => (<Chat />)} />
         <Route path='/github' component={() => (<GithubSearch />)} />
         <Route path='/stopwatch' component={() => (<Stopwatch />)} />
+        <Route path='/todo' component={() => (<ToDo />)} />
     </Router>,
     document.getElementById('app'));
