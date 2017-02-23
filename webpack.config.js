@@ -1,9 +1,6 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-// const extractSass = new ExtractTextPlugin({
-//     filename: "[name].[contenthash].css",
-//     disable: true
-// });
+const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeJsPlugin = require('optimize-js-plugin');
 
 var config = {
    entry: './src/js/app.js',
@@ -36,28 +33,26 @@ var config = {
             }
          },
          {
-            test: /\.css$/,
+            test: /\.scss$/,
             use: [{
-                loader: "style-loader" // creates style nodes from JS strings
+                  loader: "style-loader" // creates style nodes from JS strings
             }, {
-                loader: "css-loader", // translates CSS into CommonJS
-                options: {
-                  modules: true
-                }
+                  loader: "css-loader", // translates CSS into CommonJS
+                  options: {
+                     modules: true
+                  }
+            }, {
+                  loader: 'sass-loader'
             }]
-            // use: extractSass.extract({
-            //    loader: [{
-            //         loader: "css-loader"
-            //     }, {
-            //         loader: "sass-loader"
-            //     },],
-            //     // use style-loader in development
-            //     fallbackLoader: "style-loader"
-            // })
          }
       ]
    },
-   // plugins: [extractSass]
+   plugins: [
+      new UglifyJSPlugin(),
+      new OptimizeJsPlugin({
+         sourceMap: false
+      })
+   ]
 }
 
 module.exports = config;

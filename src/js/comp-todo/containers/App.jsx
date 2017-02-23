@@ -1,6 +1,6 @@
 import React from 'react';
 import uuid from 'uuid';
-import style from './App.css';
+import style from './App.scss';
 import Title from '../Title.jsx'
 
 class App extends React.Component {
@@ -30,6 +30,7 @@ class App extends React.Component {
         return (
             <div className={style.ToDoApp}>
                 <Title title={'title'} listLength={this.state.data.length} />
+                <p className={style.ToDoApp__borus}>Boruś</p>
             </div>
         )
     }
