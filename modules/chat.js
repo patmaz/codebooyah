@@ -1,38 +1,27 @@
-var WebSocketServer = require('websocket').server;
+var socketio = require('socket.io');
 
-module.exports = function(app) {
-    wsServer = new WebSocketServer({
-        httpServer: app
-    });
+module.exports = function(http) {
+    const io = socketio(http);
 
-    var count = 0;
-    var clients = {};
+    const chatTxt = io.of('/chat');
 
-    wsServer.on('request', function(req){
-        var connection = req.accept('echo-protocol', req.origin);
-        var id = count++;
-        clients[id] = connection;
-        console.log((new Date()) + ' Connection accepted [' + id + ']');
-        for(var i in clients){
-            clients[i].sendUTF('no of users: ' + count);
-        }
+    let usersNumber = 0;
 
-        connection.on('message', function(message) {
-
-            var msgString = message.utf8Data;
-
-            for(var i in clients){
-                clients[i].sendUTF(msgString);
-            }
+    chatTxt.on('connection', (client) => {
+        client.on('join', (data) => {
+            client.emit('messages', 'Welcome to code booyah! text chat');
+            ++usersNumber;
+            chatTxt.emit('messages', `${usersNumber} users online`);
         });
 
-        connection.on('close', function(reasonCode, description) {
-            delete clients[id];
-            count -= 1;
-            for(var i in clients){
-                clients[i].sendUTF('no of users: ' + count);
-            }
-            console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+        client.on('messages', (data) => {
+           client.emit('messages', data);
+           client.broadcast.emit('messages', data);
         });
+
+        client.on('disconnect', (data) => {
+            --usersNumber;
+            chatTxt.emit('messages', `${usersNumber} users online`);
+        })
     });
 }

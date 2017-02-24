@@ -6,41 +6,39 @@ class Chat extends React.Component{
         this.state = {
             name: '',
             newMsg: '',
-            allMsg: [],
-            ws: new WebSocket('wss://codebooyah.com/', 'echo-protocol')
+            allMsg: []
         }
-
-        this.typeMsg = this.typeMsg.bind(this);
-        this.typeName = this.typeName.bind(this);
-        this.sendMsg = this.sendMsg.bind(this);
     }
 
-    componentDidMount() {
-        var self = this;
-        self.state.ws.addEventListener('open',
-            (e) => console.log(e)
-        );
-        self.state.ws.addEventListener('message',
-            (e) => {
-                var msg = e.data;
-                var msgArr = self.state.allMsg;
-                msgArr = [msg, ...msgArr]; // msgArr.unshift(msg);
-                self.setState({allMsg: msgArr});
-            }
-         );
+    socket = io('/chat')
+
+    componentDidMount = () => {
+        this.socket.on('connect', (data) => {
+            this.socket.emit('join', 'Hello World from client');
+        });
+        this.socket.on('messages', (data) => {
+            var msg = data;
+            var msgArr = this.state.allMsg;
+            msgArr = [msg, ...msgArr];
+            this.setState({allMsg: msgArr});
+        });
     }
 
-    typeMsg(e) {
+    componentWillUnmount = () => {
+        this.socket.socket.disconnect();
+    }
+
+    typeMsg = (e) => {
         this.setState({newMsg: e.target.value});
     }
 
-    typeName(e) {
+    typeName = (e) => {
         this.setState({name: e.target.value});
     }
 
-    sendMsg(e) {
+    sendMsg = (e) => {
         if (e.type === 'click' || (e.type === 'keyup' && e.keyCode === 13)) {
-            this.state.ws.send(this.state.name + ' : ' + this.state.newMsg);
+            this.socket.emit('messages', this.state.name + ' : ' + this.state.newMsg);
             this.setState({newMsg: ''});
         }
     }
@@ -48,6 +46,10 @@ class Chat extends React.Component{
     render() {
         return (
             <div className={'chat'}>
+                <div className={'chat__video'}>
+                    <p className={'small'}>Experimental video chat. It will get crazy when more then 2 users click Start :P</p>
+                    <iframe src={'/static/rtc/index.html'}></iframe>
+                </div>
                 <input  value={this.state.name}
                         type={'text'}
                         onChange={this.typeName}

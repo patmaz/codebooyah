@@ -1,6 +1,15 @@
 .chat {
     text-align: center;
 
+    &__video {
+        width: 250px;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        text-align: left;
+    }
+
     &__input-name {
         border: none;
         margin: 0 auto;
