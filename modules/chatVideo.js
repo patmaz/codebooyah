@@ -1,3 +1,4 @@
+"use strict";
 const websocket = require('ws');
 
 module.exports = function(server) {

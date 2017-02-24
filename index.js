@@ -1,3 +1,4 @@
+"use strict";
 // ############### web server by express
 var express = require("express");
 var app = express();
