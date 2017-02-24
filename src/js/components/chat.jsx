@@ -47,7 +47,7 @@ class Chat extends React.Component{
         return (
             <div className={'chat'}>
                 <div className={'chat__video'}>
-                    <p className={'small'}>Experimental video chat. It will get crazy when more then 2 users click Start :P</p>
+                    <p className={'small'}>Experimental video chat. It will get crazy when more than 2 users click Start :P</p>
                     <iframe src={'/static/rtc/index.html'}></iframe>
                 </div>
                 <input  value={this.state.name}

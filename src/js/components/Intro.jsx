@@ -16,12 +16,13 @@ class Intro extends React.Component {
                         </div>
                     </li>
                     <li className={'intro__link'}>
-                        <a className={'brackets'} href='#/chat'>simple chat</a>
+                        <a className={'brackets'} href='#/chat'>simple text chat (+video beta)</a>
                         <div className={'intro__tags'}>
                             <span>reactjs</span>
                             <span>jsx</span>
                             <span>nodejs</span>
                             <span>websocket</span>
+                            <span>webRTC</span>
                         </div>
                     </li>
                     <li className={'intro__link'}>

@@ -43,7 +43,7 @@ class GitHubSearch extends React.Component {
             <div className={'github-search'}>
                 <h2>Search my js files on github</h2>
                 <form onSubmit={this.onSubmitHandle}>
-                  <label htmlFor="searchText">Type the file name and press ENTER</label>
+                  <label htmlFor="searchText">Type the phrase and press ENTER</label>
                   <input
                     type="text"
                     id="searchText"

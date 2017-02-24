@@ -1,3 +1,4 @@
+// https://github.com/shanet/WebRTC-Example
 var localVideo;
 var remoteVideo;
 var peerConnection;
