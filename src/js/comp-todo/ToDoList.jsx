@@ -1,11 +1,11 @@
 import React from 'react';
+import ToDo from './ToDo.jsx';
 import style from './ToDoList.scss';
 
 const ToDoList = props => <div>
         <ul className={style.ToDoList}>
-            {props.data.map((data) =>
-                <li key={data.id}>{data.text}<span onClick={() => props.removeToDo(data.id)}>x</span></li>
-            )}
+            {props.data.map((item) =>
+                <ToDo key={item.id} id={item.id} innerText={item.text} removeToDo={props.removeToDo} />)}
         </ul>
     </div>
 

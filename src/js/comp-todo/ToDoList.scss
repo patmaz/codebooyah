@@ -2,18 +2,4 @@
     margin: 15px;
     padding: 15px;
     border: 1px dotted grey;
-
-    li {
-        margin: 10px 0;
-
-        span {
-            float: right;
-            cursor: pointer;
-            border: 1px solid red;
-            border-radius: 3px;
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-        }
-    }
 }

@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import style from './App.scss';
 import Title from '../Title.jsx';
 import ToDoList from '../ToDoList.jsx';
+import ToDoForm from '../ToDoForm.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -43,7 +44,8 @@ class App extends React.Component {
     render() {
         return (
             <div className={style.ToDoApp}>
-                <Title title={'title'} listLength={this.state.data.length} />
+                <Title title={'No of items'} listLength={this.state.data.length} />
+                <ToDoForm addToDo={this.addToDo}/>
                 <ToDoList data={this.state.data} removeToDo={this.removeToDo} />
             </div>
         )
