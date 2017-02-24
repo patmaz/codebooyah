@@ -1,18 +1,32 @@
 import React from 'react';
 import uuid from 'uuid';
 import style from './App.scss';
-import Title from '../Title.jsx'
+import Title from '../Title.jsx';
+import ToDoList from '../ToDoList.jsx';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            data: []
+            data: [
+                {
+                    id: 1,
+                    text: 'clean room'
+                },
+                {
+                    id: 2,
+                    text: 'wash the dishes'
+                },
+                {
+                    id: 3,
+                    text: 'feed my cat'
+                }
+            ]
         }
     }
 
-    addToDo(val) {
+    addToDo = (val) => {
         const todo = {
             text: val,
             id: uuid.v4()
@@ -21,7 +35,7 @@ class App extends React.Component {
         this.setState({data});
     }
 
-    removeToDo(id) {
+    removeToDo = (id) => {
         const remainder = this.state.data.filter(todo => todo.id !== id);
         this.setState({data: remainder});
     }
@@ -30,7 +44,7 @@ class App extends React.Component {
         return (
             <div className={style.ToDoApp}>
                 <Title title={'title'} listLength={this.state.data.length} />
-                <p className={style.ToDoApp__borus}>Boruś</p>
+                <ToDoList data={this.state.data} removeToDo={this.removeToDo} />
             </div>
         )
     }
