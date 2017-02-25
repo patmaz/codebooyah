@@ -1,12 +1,11 @@
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeJsPlugin = require('optimize-js-plugin');
 
 var config = {
-   entry: './src/js/app.js',
+   entry: ['./src/js/app.js', 'webpack-hot-middleware/client', 'webpack/hot/dev-server'],
 
    output: {
-      path: __dirname + '/public/js',
+      path: '/',
+      publicPath: 'http://localhost:8000/static/js',
       filename: 'app.js',
    },
 
@@ -16,10 +15,9 @@ var config = {
             test: /\.js[x]?$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-
             options: {
                presets: ['es2015', 'react'],
-               plugins: ['transform-class-properties']
+               plugins: ['react-hot-loader/babel', 'transform-class-properties']
             }
          },
          {
@@ -38,10 +36,7 @@ var config = {
       ]
    },
    plugins: [
-      new UglifyJSPlugin(),
-      new OptimizeJsPlugin({
-         sourceMap: false
-      })
+      new webpack.HotModuleReplacementPlugin()
    ]
 };
 
