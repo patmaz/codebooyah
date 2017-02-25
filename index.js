@@ -9,12 +9,13 @@ var mongo = require('./modules/mongo');
 var routes = require('./modules/routes');
 var chat = require('./modules/chat');
 
-//static files
+// HMR
 if (process.env.NODE_ENV === 'development') {
     webpackDevHelper.useWebpackMiddleware(app);
-} else {
-    app.use('/static', express.static(__dirname + "/public"));
 }
+
+//static files
+app.use('/static', express.static(__dirname + "/public"));
 
 // EJS engine
 app.set("view engine", "ejs");
