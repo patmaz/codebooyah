@@ -8,6 +8,10 @@
         top: 0;
         left: 0;
         text-align: left;
+        @media only screen and (max-width: 767px) {
+            position: static;
+            width: auto
+        }
     }
 
     &__input-name {

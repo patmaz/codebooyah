@@ -15,6 +15,22 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     color: $primary-color;
+    z-index: 1;
+}
+
+#svg-bgr {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    svg {
+        width: 100%;
+    }
+    z-index: -1;
+
+    @media only screen and (max-width: 767px) {
+        display: none;
+    }
 }
 
 h2 {
