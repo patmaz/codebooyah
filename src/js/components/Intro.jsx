@@ -6,8 +6,8 @@ class Intro extends React.Component {
             <div className={'intro'}>
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
                 <ul>
-                    <li className={'intro__link'}>
-                        <a className={'brackets'} href='#/gif'>gif search</a>
+                    <li className={'intro__link'} data-href={'#/gif'}>
+                        <span>gif search</span>
                         <div className={'intro__tags'}>
                             <span>reactjs</span>
                             <span>jsx</span>
@@ -15,8 +15,8 @@ class Intro extends React.Component {
                             <span>ajax</span>
                         </div>
                     </li>
-                    <li className={'intro__link'}>
-                        <a className={'brackets'} href='#/chat'>simple text chat (+video beta)</a>
+                    <li className={'intro__link'} data-href={'#/chat'}>
+                        <span>simple text chat (+video beta)</span>
                         <div className={'intro__tags'}>
                             <span>reactjs</span>
                             <span>jsx</span>
@@ -25,8 +25,8 @@ class Intro extends React.Component {
                             <span>webRTC</span>
                         </div>
                     </li>
-                    <li className={'intro__link'}>
-                        <a className={'brackets'} href='#/github'>my github repositories search engine</a>
+                    <li className={'intro__link'} data-href={'#/github'}>
+                        <span>my github repositories search engine</span>
                         <div className={'intro__tags'}>
                             <span>reactjs</span>
                             <span>jsx</span>
@@ -34,8 +34,8 @@ class Intro extends React.Component {
                             <span>ajax</span>
                         </div>
                     </li>
-                    <li className={'intro__link'}>
-                        <a className={'brackets'} href='#/stopwatch'>react stopwatch</a>
+                    <li className={'intro__link'} data-href={'#/stopwatch'}>
+                        <span>react stopwatch</span>
                         <div className={'intro__tags'}>
                             <span>ES6</span>
                             <span>reactjs</span>

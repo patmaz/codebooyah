@@ -7,6 +7,15 @@
             }
         });
 
+        $(doc).on('click', '.intro__link', function() {
+            var $this = $(this);
+            $this.addClass('clicked');
+            setTimeout(function(){
+                $this.removeClass('clicked');
+                window.location.href = $this.attr('data-href');
+            }, 400);
+        });
+
         if(anime !== 'undefined' && window.innerWidth > 767) {
             var appDiv = anime({
                 targets: '#app',
