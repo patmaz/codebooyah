@@ -8,14 +8,10 @@ class ListForm extends React.Component {
             title: '',
             body: ''
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
-        var self = this;
 
         var data = {
             title: this.state.title,
@@ -25,26 +21,25 @@ class ListForm extends React.Component {
         $.ajax({
             type: 'POST',
             url: '/mongo',
-            data: data,
-            beforeSend: function() {console.log('before send')}
+            data
         })
-        .done(function(data) {
-            self.props.refreshClick();
+        .done((data) => {
+            this.props.refreshClick();
         })
-        .fail(function(jqXhr) {
-            console.log('failed');
+        .fail((jqXhr) => {
+            console.error('failed');
         });
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
 
    render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="title" onChange={this.handleChange} /><br />
-                <textarea type="text" name={"body"} onChange={this.handleChange} /><br />
+                <input type="text" name="title" onChange={this.handleChange} />
+                <textarea type="text" name={"body"} onChange={this.handleChange} />
                 <input type="submit" value="submit" />
             </form>
         )

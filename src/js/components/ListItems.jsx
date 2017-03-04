@@ -4,16 +4,16 @@ import ListForm from './ListForm.jsx';
 
 class ListItems extends React.Component {
     componentDidMount() {
-        this.getPromise();
+        this.getEntries();
     }
 
-    refreshState() {
-        this.getPromise();
+    refreshState = () => {
+        this.getEntries();
     }
 
-    getPromise() {
+    getEntries = () => {
         let component = this;
-        function getPromise(){
+        function getEntries(){
             const URL = '/mongo';
 
             if(window.Promise){
@@ -22,7 +22,7 @@ class ListItems extends React.Component {
 
                     req.open('GET', URL);
 
-                    req.onload = function(){
+                    req.onload = () => {
                         if(req.status === 200){
                             resolve(req.response);
                         } else {
@@ -30,11 +30,11 @@ class ListItems extends React.Component {
                         }
                     }
 
-                    req.onprogress = function(){
+                    req.onprogress = () => {
                         console.log('loading...');
                     }
 
-                    req.onerror = function(){
+                    req.onerror = () => {
                         reject(Error('Error fetching data.'));
                     }
 
@@ -44,17 +44,17 @@ class ListItems extends React.Component {
                     console.log('Asynchronous request made');
                 });
             } else {
-                console.log('promise not available');
+                console.error('promise not available');
             }
         }
 
-        var promise = getPromise();
-        promise.then(function(data){
+        var promise = getEntries();
+        promise.then((data) => {
             console.log('Got data! Promise fulfilled');
             component.setState({data: JSON.parse(data)});
-        }, function(err){
-            console.log('Promise rejected.');
-            console.log(err.message);
+        }, (err) => {
+            console.error('Promise rejected.');
+            console.error(err.message);
         });
     }
 
@@ -64,7 +64,7 @@ class ListItems extends React.Component {
                 <div>
                     <ListForm refreshClick={this.refreshState.bind(this)} />
                     <ul>
-                        {this.state.data.map((item, index) => <ListItem key={index} properties={item} />)}
+                        {this.state.data.map((item, index) => <ListItem key={index} itemFields={item} />)}
                     </ul>
                 </div>
             )
@@ -74,10 +74,6 @@ class ListItems extends React.Component {
             )
         }
     }
-}
-
-ListItems.propTypes = {
-    //empty
 }
 
 export default ListItems;
