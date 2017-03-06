@@ -3,10 +3,12 @@ import React from 'react';
 class ListItem extends React.Component {
    render() {
         return (
-            <li>
-                <h3>{this.props.itemFields.title}</h3>
-                <p>{this.props.itemFields.body}</p>
-            </li>
+            <tr>
+                <td>{this.props.itemFields.title}</td>
+                <td>{this.props.itemFields.body}</td>
+                <td>{this.props.itemFields.date}</td>
+                <td>{this.props.itemFields._id}</td>
+            </tr>
         )
    }
 }
