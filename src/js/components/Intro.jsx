@@ -13,6 +13,7 @@ class Intro extends React.Component {
                             <span>jsx</span>
                             <span>promise</span>
                             <span>ajax</span>
+                            <span>web speech api</span>
                         </div>
                     </li>
                     <li className={'intro__link'} data-href={'#/chat'}>

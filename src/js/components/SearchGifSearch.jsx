@@ -3,21 +3,50 @@ import React from 'react';
 class SearchGifSearch extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {searchTerm: ''};
+        this.state = {
+            searchTerm: '',
+            speechAvailable: true,
+            speechRecognitionStatus: '...'
+        };
 
-        this.changeHandler = this.changeHandler.bind(this);
-        this.keyUpHandler = this.keyUpHandler.bind(this);
+        this.speechRecognitionInit();
     }
 
-    changeHandler(e) {
+    changeHandler = (e) => {
         var searchTerm = e.target.value;
-        this.setState({searchTerm : searchTerm});
+        this.setState({searchTerm});
         this.props.onSearch(searchTerm);
+        this.setState({speechRecognitionStatus: '...'});
     }
 
-    keyUpHandler(e) {
+    keyUpHandler = (e) => {
         if (e.keyCode === 13) {
             this.props.onSearch(this.state.searchTerm);
+        }
+    }
+
+    speechRecognitionInit = () => {
+        window.SpeechRecognition = window.SpeechRecognition ||
+                                 window.webkitSpeechRecognition ||
+                                 null;
+        if (window.SpeechRecognition === null) {
+            this.setState({speechAvailable: false});
+        } else {
+            this.recognizer = new window.SpeechRecognition();
+
+            this.recognizer.onresult = (e) => {
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    if (e.results[i].isFinal) {
+                        this.setState({searchTerm: e.results[i][0].transcript});
+                        this.props.onSearch(this.state.searchTerm);
+                        this.setState({speechRecognitionStatus: `${e.results[i][0].confidence} confidence`});
+                    }
+                }
+            }
+
+            this.recognizer.onerror = (e) => {
+                this.setState({speechRecognitionStatus: 'Speech recognition error'});
+            }
         }
     }
 
@@ -30,6 +59,12 @@ class SearchGifSearch extends React.Component {
                         onChange={this.changeHandler}
                         onKeyUp={this.keyUpHandler}
                         value={this.state.searchTerm}/>
+                {this.state.speechAvailable === true &&
+                    <div>
+                        <p>you can <button onClick={() => this.recognizer.start()}>SAY</button> what you want</p>
+                        <p className={'small'}>speech recognition status: {this.state.speechRecognitionStatus}</p>
+                    </div>
+                }
             </div>
         )
     }

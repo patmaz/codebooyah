@@ -38,22 +38,12 @@ class SearchGifApp extends React.Component {
                 const req = new XMLHttpRequest();
 
                 req.onload = () => {
-                    // console.log(this);
                     if(req.status === 200){
                         resolve(req.response);
                     } else {
                         reject(new Error(req.statusText));
                     }
                 }
-
-                // req.onload = function(){
-                //     console.log(this);
-                //     if(this.status === 200){
-                //         resolve(this.response);
-                //     } else {
-                //         reject(new Error(this.statusText));
-                //     }
-                // }
 
                 req.onerror = () => {
                     reject(new Error(`XMLHttpRequest Error: ${req.statusText}`));
