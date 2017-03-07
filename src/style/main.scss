@@ -238,6 +238,34 @@ button {
     }
 }
 
+#iss {
+    position: fixed;
+    left: -237px;
+    top: 40%;
+    background-color: #fff;
+    border: 1px solid $primary-color;
+    border-left: none;
+    height: 200px;
+    width: 205px;
+    padding: 5px 40px 5px 5px;
+    font-size: 11px;
+    font-family: 'Roboto Mono', cursive;
+    transition: all 0.5s;
+
+    &.active {
+        left: 0;
+    }
+
+    h2 {
+        transform: rotate(90deg);
+        position: absolute;
+        right: -64px;
+        top: 96px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+}
+
 @import './components/comp-gif-search.scss';
 @import './components/comp-chat.scss';
 @import './components/comp-guthub-search.scss';

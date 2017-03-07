@@ -1,10 +1,21 @@
 (function(win, doc) {
     function start() {
+        var stream = new EventSource("/sse");
+        var $iss = $('#iss');
+        var $issLong = $('#long');
+        var $issLat = $('#lat');
+        var $usersNo = $('#no');
+        var $uptime = $('#uptime');
         var $about = $('.about');
+
         $about.on('click', function(e) {
             if ($(e.target).hasClass('about')) {
                 $(this).toggleClass('show');
             }
+        });
+
+        $iss.on('click', function(){
+            $iss.toggleClass('active');
         });
 
         $(doc).on('click', '.intro__link', function() {
@@ -55,6 +66,34 @@
         } else {
             document.getElementById('svg-bgr').style.display = 'none';
         }
+
+        stream.onopen = function() {
+          console.log('Opened SSE connection');
+        };
+
+        stream.onerror = function (event) {
+          $issLat.text('error');
+          $issLong.text('error');
+          $no.text('error');
+          $uptime.text('error');
+        };
+
+        stream.onmessage = function (event) {
+          console.log(event.data);
+          var data = JSON.parse(event.data);
+          $issLat.text(data[0].latitude);
+          $issLong.text(data[0].longitude);
+          $usersNo.text(data[1]);
+          $uptime.text(data[2]);
+        };
+
+        stream.onclose = function(code, reason) {
+          console.log(code, reason);
+        }
+
+        window.addEventListener('beforeunload', function() {
+          stream.close();
+        });
     }
     $(doc).ready(start);
 })(window, document);

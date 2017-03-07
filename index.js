@@ -19,6 +19,7 @@ var mongo = require('./modules/mongo');
 var routes = require('./modules/routes');
 var chat = require('./modules/chat');
 var chatVideo = require('./modules/chatVideo');
+var sse = require('./modules/sse');
 
 //static files
 app.use('/static', express.static(__dirname + "/public"));
@@ -32,5 +33,6 @@ chat(server);
 mongo(app);
 routes(app);
 chatVideo(server);
+sse(server);
 
 server.listen(8000);
