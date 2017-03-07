@@ -72,27 +72,26 @@
         };
 
         stream.onerror = function (event) {
-          $issLat.text('error');
-          $issLong.text('error');
-          $no.text('error');
-          $uptime.text('error');
+            $issLat.text('error');
+            $issLong.text('error');
+            $usersNo.text('error');
+            $uptime.text('error');
         };
 
         stream.onmessage = function (event) {
-          console.log(event.data);
-          var data = JSON.parse(event.data);
-          $issLat.text(data[0].latitude);
-          $issLong.text(data[0].longitude);
-          $usersNo.text(data[1]);
-          $uptime.text(data[2]);
+            var data = JSON.parse(event.data);
+            $issLat.text(data[0].latitude);
+            $issLong.text(data[0].longitude);
+            $usersNo.text(data[1]);
+            $uptime.text(data[2]);
         };
 
         stream.onclose = function(code, reason) {
-          console.log(code, reason);
+            console.log(code, reason);
         }
 
         window.addEventListener('beforeunload', function() {
-          stream.close();
+            stream.close();
         });
     }
     $(doc).ready(start);

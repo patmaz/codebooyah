@@ -29,10 +29,10 @@ app.set("view engine", "ejs");
 
 // modules
 // mind the sequence because of react router
+sse(server);
 chat(server);
 mongo(app);
 routes(app);
 chatVideo(server);
-sse(server);
 
 server.listen(8000);

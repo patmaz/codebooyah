@@ -1,3 +1,4 @@
+"use strict";
 var http = require('http');
 var SSE = require('sse');
 var https = require('https');
@@ -10,6 +11,7 @@ module.exports = function(server) {
 
     sse.on('connection', function(stream) {
         clients.push(stream);
+        stream.send('[{"latitude":"...","longitude":"..."},null,null]');
         stream.on('close', function() {
             clients.splice(clients.indexOf(stream), 1);
         });
@@ -33,6 +35,7 @@ module.exports = function(server) {
                         clients.forEach((stream) => {
                             stream.send(JSON.stringify(data));
                         });
+                        console.log(JSON.stringify(data));
                     } catch (err) {
                         console.log('Error parsing JSON!');
                     }
