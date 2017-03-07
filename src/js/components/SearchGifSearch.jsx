@@ -8,7 +8,9 @@ class SearchGifSearch extends React.Component {
             speechAvailable: true,
             speechRecognitionStatus: '...'
         };
+    }
 
+    componentDidMount() {
         this.speechRecognitionInit();
     }
 
@@ -64,6 +66,9 @@ class SearchGifSearch extends React.Component {
                         <p>you can <button onClick={() => this.recognizer.start()}>SAY</button> what you want</p>
                         <p className={'small'}>speech recognition status: {this.state.speechRecognitionStatus}</p>
                     </div>
+                }
+                {this.state.speechAvailable === false &&
+                    <p className={'small'}>Upsss, your browser is <a target={'_blank'} href={'https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API#Browser_compatibility'}>deaf</a></p>
                 }
             </div>
         )
