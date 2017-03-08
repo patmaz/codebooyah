@@ -7,6 +7,31 @@
         var $usersNo = $('#no');
         var $uptime = $('#uptime');
         var $about = $('.about');
+        var usersNumber;
+        var numberOfPushes = 0;
+
+        if(Notification) {
+            if (Notification.permission !== "granted") Notification.requestPermission();
+        }
+
+        function notify(usersNumber) {
+            if (!Notification) {
+                alert('Desktop notifications not available in your browser.');
+                return;
+            }
+
+            if (Notification.permission !== "granted")
+                Notification.requestPermission();
+            else {
+                var notification = new Notification('Booyah!!!', {
+                  body: "Number of users has changed to: " + usersNumber,
+                });
+
+                notification.onclick = function () {
+                  $iss.click();
+                };
+            }
+        }
 
         $about.on('click', function(e) {
             if ($(e.target).hasClass('about')) {
@@ -79,11 +104,21 @@
         };
 
         stream.onmessage = function (event) {
+            numberOfPushes++;
             var data = JSON.parse(event.data);
             $issLat.text(data[0].latitude);
             $issLong.text(data[0].longitude);
             $usersNo.text(data[1]);
             $uptime.text(data[2]);
+
+            if (numberOfPushes === 1) {
+                usersNumber = data[1];
+            }
+
+            if (usersNumber !== data[1]) {
+                usersNumber = data[1];
+                notify(data[1]);
+            };
         };
 
         stream.onclose = function(code, reason) {
