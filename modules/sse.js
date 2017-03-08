@@ -1,19 +1,36 @@
 "use strict";
 var http = require('http');
 var SSE = require('sse');
-var https = require('https');
 
 const URL = 'http://api.open-notify.org/iss-now.json?callback=?';
 
-module.exports = function(server) {
-    let sse = new SSE(server);
-    let clients = [];
+module.exports = function(app) {
+    let openConnections = [];
 
-    sse.on('connection', function(stream) {
-        clients.push(stream);
-        stream.send('[{"latitude":"...","longitude":"..."},null,null]');
-        stream.on('close', function() {
-            clients.splice(clients.indexOf(stream), 1);
+    app.get('/sse', function(req, res) {
+
+        req.socket.setTimeout(1000 * 60 * 10);
+
+        res.writeHead(200, {
+            "X-Accel-Buffering": "no",
+            'Content-Type': 'text/event-stream',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive'
+        });
+        res.write('\n');
+
+        openConnections.push(res);
+
+        req.on("close", function() {
+            let toRemove;
+            for (let j = 0 ; j < openConnections.length ; j++) {
+                if (openConnections[j] == res) {
+                    toRemove = j;
+                    break;
+                }
+            }
+            openConnections.splice(toRemove, 1);
+            console.log(openConnections.length);
         });
     });
 
@@ -32,10 +49,10 @@ module.exports = function(server) {
                         let data = [JSON.parse(json).iss_position];
                         data.push(usersNumber);
                         data.push(process.uptime());
-                        clients.forEach((stream) => {
-                            stream.send(JSON.stringify(data));
+                        openConnections.forEach(function(res) {
+                            res.write('data:' + JSON.stringify(data) + '\n\n');
                         });
-                        console.log(JSON.stringify(data));
+                        console.log('data:' + JSON.stringify(data) + '\n\n');
                     } catch (err) {
                         console.log('Error parsing JSON!');
                     }
@@ -48,6 +65,6 @@ module.exports = function(server) {
         });
     }
     setInterval(() => {
-        if (clients.length > 0) broadcast(clients.length);
+        if (openConnections.length > 0) broadcast(openConnections.length);
     }, 10000);
 }

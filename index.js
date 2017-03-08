@@ -1,4 +1,5 @@
 "use strict";
+
 // ############### web server by express
 var express = require("express");
 var app = express();
@@ -29,7 +30,7 @@ app.set("view engine", "ejs");
 
 // modules
 // mind the sequence because of react router
-sse(server);
+sse(app);
 chat(server);
 mongo(app);
 routes(app);
