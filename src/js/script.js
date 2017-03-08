@@ -10,26 +10,33 @@
         var usersNumber;
         var numberOfPushes = 0;
 
-        if(Notification) {
-            if (Notification.permission !== "granted") Notification.requestPermission();
+        try {
+            if(Notification) {
+                if (Notification.permission !== "granted") Notification.requestPermission();
+            }
+        } catch (err) {
+            console.error(err);
         }
 
         function notify(usersNumber) {
-            if (!Notification) {
-                alert('Desktop notifications not available in your browser.');
-                return;
-            }
+            try {
+                if (!Notification) {
+                    return;
+                }
 
-            if (Notification.permission !== "granted")
-                Notification.requestPermission();
-            else {
-                var notification = new Notification('Booyah!!!', {
-                  body: "Number of users has changed to: " + usersNumber,
-                });
+                if (Notification.permission !== "granted")
+                    Notification.requestPermission();
+                else {
+                    var notification = new Notification('Booyah!!!', {
+                        body: "Number of users has changed to: " + usersNumber
+                    });
 
-                notification.onclick = function () {
-                  $iss.click();
-                };
+                    notification.onclick = function () {
+                        $iss.click();
+                    };
+                }
+            } catch (err) {
+                console.error(err);
             }
         }
 

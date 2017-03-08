@@ -9,7 +9,7 @@ module.exports = function(app) {
 
     app.get('/sse', function(req, res) {
 
-        req.socket.setTimeout(1000 * 60 * 10);
+        req.socket.setTimeout(600000);
 
         res.writeHead(200, {
             "X-Accel-Buffering": "no",
