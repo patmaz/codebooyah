@@ -6,7 +6,8 @@ class SearchGifSearch extends React.Component {
         this.state = {
             searchTerm: '',
             speechAvailable: true,
-            speechRecognitionStatus: '...'
+            speechRecognitionStatus: '...',
+            speechInProgress: false
         };
     }
 
@@ -42,14 +43,21 @@ class SearchGifSearch extends React.Component {
                         this.setState({searchTerm: e.results[i][0].transcript});
                         this.props.onSearch(this.state.searchTerm);
                         this.setState({speechRecognitionStatus: `${e.results[i][0].confidence} confidence`});
+                        this.setState({speechInProgress: false});
                     }
                 }
             }
 
             this.recognizer.onerror = (e) => {
                 this.setState({speechRecognitionStatus: 'Speech recognition error'});
+                this.setState({speechInProgress: false});
             }
         }
+    }
+
+    speechRecognitionStart = () => {
+        this.recognizer.start();
+        this.setState({speechInProgress: true});
     }
 
     render() {
@@ -63,7 +71,9 @@ class SearchGifSearch extends React.Component {
                         value={this.state.searchTerm}/>
                 {this.state.speechAvailable === true &&
                     <div>
-                        <p>you can <button onClick={() => this.recognizer.start()}>SAY</button> what you want</p>
+                        <p>you can <button 
+                                        className={this.state.speechInProgress ? 'rec' : 'norec'}
+                                        onClick={this.speechRecognitionStart}>SAY</button> what you want</p>
                         <p className={'small'}>speech recognition status: {this.state.speechRecognitionStatus}</p>
                     </div>
                 }

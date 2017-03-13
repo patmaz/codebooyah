@@ -39,4 +39,11 @@
             max-width: 100%;
         }
     }
+
+    .rec {
+        background-color: #ff0000;
+        box-shadow: 0 0 0 #ff0000;
+        animation: pulse 1s infinite;
+        animation-direction: alternate;
+    }
 }

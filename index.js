@@ -3,6 +3,8 @@
 // ############### web server by express
 var express = require("express");
 var app = express();
+var helmet = require('helmet');
+
 if (process.env.HTTPS === 'yes') {
     var fs = require('fs');
     var options = {
@@ -24,6 +26,9 @@ var sse = require('./modules/sse');
 
 //static files
 app.use('/static', express.static(__dirname + "/public"));
+
+// security
+app.use(helmet());
 
 // EJS engine
 app.set("view engine", "ejs");
