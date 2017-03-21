@@ -6,6 +6,18 @@ class Intro extends React.Component {
             <div className={'intro'}>
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
                 <ul>
+                    <li className={'intro__link'} data-href={'http://chat.codebooyah.com/'}>
+                        <span>text chat with dynamic rooms</span>
+                        <div className={'intro__tags'}>
+                            <span>reactjs</span>
+                            <span>redux</span>
+                            <span>jsx</span>
+                            <span>nodejs</span>
+                            <span>socket.io</span>
+                            <span>auth0</span>
+                            <span>firebase</span>
+                        </div>
+                    </li>
                     <li className={'intro__link'} data-href={'#/gif'}>
                         <span>gif search</span>
                         <div className={'intro__tags'}>
