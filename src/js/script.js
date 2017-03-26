@@ -53,10 +53,17 @@
         $(doc).on('click', '.intro__link', function() {
             var $this = $(this);
             $this.addClass('clicked');
-            setTimeout(function(){
-                $this.removeClass('clicked');
-                window.location.href = $this.attr('data-href');
-            }, 400);
+            if ($this.attr('data-href')) {
+                setTimeout(function(){
+                    $this.removeClass('clicked');
+                    window.location.href = $this.attr('data-href');
+                }, 400);
+            } else if ($this.attr('data-click')) {
+                setTimeout(function(){
+                    $this.removeClass('clicked');
+                    $('#' + $this.attr('data-click')).click();
+                }, 400);
+            }
         });
 
         if(anime !== 'undefined' && window.innerWidth > 767) {

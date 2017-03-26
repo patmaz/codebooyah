@@ -18,8 +18,15 @@ class Intro extends React.Component {
                             <span>firebase</span>
                         </div>
                     </li>
+                    <li className={'intro__link'} data-click={'iss'}>
+                        <span>server-sent events</span>
+                        <div className={'intro__tags'}>
+                            <span>server-sent events</span>
+                            <span>nodejs</span>
+                        </div>
+                    </li>
                     <li className={'intro__link'} data-href={'#/gif'}>
-                        <span>gif search</span>
+                        <span>speech gif search</span>
                         <div className={'intro__tags'}>
                             <span>reactjs</span>
                             <span>jsx</span>
