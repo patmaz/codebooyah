@@ -106,19 +106,23 @@ class ListItems extends React.Component {
                         <thead>
                             <tr>
                                 <td>
+                                    Title
                                     <button onClick={() => this.sortDataAsc('title')}>acs</button>
                                     <button onClick={() => this.sortDataDesc('title')}>desc</button>
-                                    <input type={'text'} onChange={(e) => this.filterData('title', e)} />
+                                    <input placeholder={'filter'} type={'text'} onChange={(e) => this.filterData('title', e)} />
                                 </td>
                                 <td>
+                                    Content
                                     <button onClick={() => this.sortDataAsc('body')}>asc</button>
                                     <button onClick={() => this.sortDataDesc('body')}>desc</button>
                                 </td>
                                 <td>
+                                    Date
                                     <button onClick={() => this.sortDataAsc('date')}>asc</button>
                                     <button onClick={() => this.sortDataDesc('date')}>desc</button>
                                 </td>
                                 <td>
+                                    ID
                                     <button onClick={() => this.sortDataAsc('_id')}>asc</button>
                                     <button onClick={() => this.sortDataDesc('_id')}>desc</button>
                                 </td>

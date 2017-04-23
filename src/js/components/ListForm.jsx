@@ -38,8 +38,10 @@ class ListForm extends React.Component {
    render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="title" onChange={this.handleChange} />
-                <textarea type="text" name={"body"} onChange={this.handleChange} />
+                <label htmlFor="title">Title: </label>
+                <input type="text" name="title" onChange={this.handleChange} /><br/>
+                <label htmlFor="body">Content: </label>
+                <textarea type="text" name="body" onChange={this.handleChange} /><br/>
                 <input type="submit" value="submit" />
             </form>
         )
