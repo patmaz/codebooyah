@@ -79,6 +79,15 @@ button {
 .intro {
     text-align: center;
 
+    span {
+        display: block;
+    }
+
+    .descr {
+        font-size: 10px;
+        margin-top: 5px;
+    }
+
     &__link {
         margin: 15px auto;
         padding: 15px;

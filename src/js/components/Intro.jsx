@@ -13,7 +13,8 @@ class Intro extends React.Component {
                         </div>
                     </li>
                     <li className={'intro__link'} data-href={'http://api.codebooyah.com/'}>
-                        <span>experimental public API (currently useless:)</span>
+                        <span>experimental public API</span>
+                        <span className="descr">lorem ipsum generator example request: curl -H "authorization: json_web_token" http://api.codebooyah.com/lorem/number_of_words</span>
                         <div className={'intro__tags'}>
                             <span>nodejs</span>
                             <span>mongodb</span>
