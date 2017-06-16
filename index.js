@@ -4,6 +4,7 @@
 var express = require("express");
 var app = express();
 var helmet = require('helmet');
+var morgan = require('morgan');
 
 if (process.env.HTTPS === 'yes') {
     var fs = require('fs');
@@ -30,6 +31,9 @@ app.use('/static', express.static(__dirname + "/public"));
 // security
 app.use(helmet());
 
+//logs
+app.use(morgan('combined'));
+
 // EJS engine
 app.set("view engine", "ejs");
 
@@ -42,3 +46,4 @@ routes(app);
 chatVideo(server);
 
 server.listen(8000);
+console.log('+++ codeboohay +++ 8000');

@@ -30,7 +30,6 @@ module.exports = function(app) {
                 }
             }
             openConnections.splice(toRemove, 1);
-            console.log(openConnections.length);
         });
     });
 
@@ -52,7 +51,8 @@ module.exports = function(app) {
                         openConnections.forEach(function(res) {
                             res.write('data:' + JSON.stringify(data) + '\n\n');
                         });
-                        console.log('data:' + JSON.stringify(data) + '\n\n');
+                        console.log('open connections: ' + openConnections.length);
+                        console.log('data:' + JSON.stringify(data));
                     } catch (err) {
                         console.log('Error parsing JSON!');
                     }

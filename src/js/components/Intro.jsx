@@ -6,6 +6,21 @@ class Intro extends React.Component {
             <div className={'intro'}>
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
                 <ul>
+                    <li className={'intro__link'} data-href={'https://codebooyah.com/static/vrapp/'}>
+                        <span>first sample VR app</span>
+                        <div className={'intro__tags'}>
+                            <span>reactVR</span>
+                        </div>
+                    </li>
+                    <li className={'intro__link'} data-href={'http://api.codebooyah.com/'}>
+                        <span>experimental public API (currently useless:)</span>
+                        <div className={'intro__tags'}>
+                            <span>nodejs</span>
+                            <span>mongodb</span>
+                            <span>JWT</span>
+                            <span>CORS</span>
+                        </div>
+                    </li>
                     <li className={'intro__link'} data-href={'http://chat.codebooyah.com/'}>
                         <span>text chat with dynamic rooms</span>
                         <div className={'intro__tags'}>
@@ -16,6 +31,7 @@ class Intro extends React.Component {
                             <span>socket.io</span>
                             <span>auth0</span>
                             <span>firebase</span>
+                            <span>session in redis</span>
                         </div>
                     </li>
                     <li className={'intro__link'} data-click={'iss'}>
@@ -61,6 +77,15 @@ class Intro extends React.Component {
                             <span>reactjs</span>
                             <span>jsx</span>
                             <span>localStorage</span>
+                        </div>
+                    </li>
+                    <li className={'intro__link'} data-href={'http://neuropedia.pl'}>
+                        <span>neuropedia.pl</span>
+                        <div className={'intro__tags'}>
+                            <span>angularjs</span>
+                            <span>jquery</span>
+                            <span>nodejs</span>
+                            <span>mongodb</span>
                         </div>
                     </li>
                 </ul>
