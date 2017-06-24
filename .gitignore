@@ -2,3 +2,4 @@ node_modules
 mongodb
 .idea
 *.log
+config.js

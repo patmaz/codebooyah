@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Intro extends React.Component {
-   render() {
+    render() {
         return (
             <div className={'intro'}>
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
@@ -12,9 +12,10 @@ class Intro extends React.Component {
                             <span>reactVR</span>
                         </div>
                     </li>
-                    <li className={'intro__link'} data-href={'http://api.codebooyah.com/'}>
+                    <li className={'intro__link'} data-href={'/lorem/10'}>
                         <span>experimental public API</span>
                         <span className="descr">lorem ipsum generator example request: curl -H "authorization: json_web_token" http://api.codebooyah.com/lorem/number_of_words</span>
+                        <span className="descr">click for sample of 10 words</span>
                         <div className={'intro__tags'}>
                             <span>nodejs</span>
                             <span>mongodb</span>
@@ -92,7 +93,7 @@ class Intro extends React.Component {
                 </ul>
             </div>
         )
-   }
+    }
 }
 
 export default Intro;
