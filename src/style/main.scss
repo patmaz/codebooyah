@@ -146,12 +146,16 @@ button {
 
     &:before {
         content: '< about />';
+        background-color: rgba(132, 132, 132, 0.97);
         display: block;
         position: absolute;
         left: 50%;
-        margin-left: -37px;
-        top: -13px;
-        font-size: 13px;
+        margin-left: -45px;
+        top: -20px;
+        font-size: 15px;
+        padding: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         cursor: pointer;
         animation-name: rubberBand;
         animation-duration: 5s;

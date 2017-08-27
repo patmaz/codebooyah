@@ -6,10 +6,19 @@ class Intro extends React.Component {
             <div className={'intro'}>
                 <p>Welcome to my JavaScript sandbox. Have fun with:</p>
                 <ul>
+                    <li className={'intro__link'} data-href={'https://360.codebooyah.com/'}>
+                        <span>360 ReactVR Project</span>
+                        <div className={'intro__tags'}>
+                            <span>reactVR</span>
+                            <span>360</span>
+                        </div>
+                    </li>
                     <li className={'intro__link'} data-href={'https://codebooyah.com/static/vrapp/'}>
                         <span>first sample VR app</span>
                         <div className={'intro__tags'}>
                             <span>reactVR</span>
+                            <span>3D models</span>
+                            <span>360 video</span>
                         </div>
                     </li>
                     <li className={'intro__link'} data-href={'/lorem/10'}>
