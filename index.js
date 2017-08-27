@@ -5,6 +5,7 @@ var express = require("express");
 var app = express();
 var helmet = require('helmet');
 var morgan = require('morgan');
+var path = require('path');
 
 if (process.env.HTTPS === 'yes') {
     var fs = require('fs');
@@ -26,7 +27,7 @@ var chatVideo = require('./modules/chatVideo');
 var sse = require('./modules/sse');
 
 //static files
-app.use('/static', express.static(__dirname + "/public"));
+app.use('/static', express.static(path.join(__dirname, '/public'), { maxAge: 86400000 }));
 
 // security
 app.use(helmet());
