@@ -50,9 +50,12 @@
             $iss.toggleClass('active');
         });
 
-        $(doc).on('click', '.intro__link', function() {
+        $(doc).on('click', '.intro__link', function(e) {
             var $this = $(this);
             $this.addClass('clicked');
+            if ($(e.target).hasClass('repo')){
+                return;
+            }
             if ($this.attr('data-href')) {
                 setTimeout(function(){
                     $this.removeClass('clicked');

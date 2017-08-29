@@ -86,6 +86,10 @@ button {
     .descr {
         font-size: 10px;
         margin-top: 5px;
+
+        &.see {
+            font-size: 15px;
+        }
     }
 
     &__link {
