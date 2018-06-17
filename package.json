@@ -9,7 +9,8 @@
     "startlocal": "APP_MONGO=no HTTPS=yes nodemon index.js",
     "mongo": "mongod --dbpath ~/Documents/webdev/codebooyah/mongodb/",
     "prod1": "gulp nowatch --env prod",
-    "prod2": "NODE_ENV=production webpack"
+    "prod2": "NODE_ENV=production webpack",
+    "prod": "npm run prod1 && npm run prod2"
   },
   "keywords": [],
   "author": "",

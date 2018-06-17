@@ -1,11 +1,8 @@
 "use strict";
-var http = require('http');
-var SSE = require('sse');
-
-const URL = 'http://api.open-notify.org/iss-now.json?callback=?';
+const SSE = require('sse');
 
 module.exports = function(app) {
-    let openConnections = [];
+    const openConnections = [];
 
     app.get('/sse', function(req, res) {
 
@@ -33,38 +30,18 @@ module.exports = function(app) {
         });
     });
 
-    var broadcast = (usersNumber) => {
-        http.get(URL, (res) => {
-            let json = '';
+    const broadcast = (usersNumber) => {
+      const data = {};
+      data.usersNo = usersNumber;
+      data.uptime = process.uptime();
+      data.memo = process.memoryUsage().rss;
+      data.platform = process.platform;
 
-            res.on('data', (chunk) => {
-                json += chunk;
-            });
-
-            res.on('end', () => {
-                if (res.statusCode === 200) {
-                    try {
-                        json = json.substring(2, json.length-1);
-                        let data = [JSON.parse(json).iss_position];
-                        data.push(usersNumber);
-                        data.push(process.uptime());
-                        openConnections.forEach(function(res) {
-                            res.write('data:' + JSON.stringify(data) + '\n\n');
-                        });
-                        console.log('open connections: ' + openConnections.length);
-                        console.log('data:' + JSON.stringify(data));
-                    } catch (err) {
-                        console.log('Error parsing JSON!');
-                    }
-                } else {
-                    console.log('Status:', res.statusCode);
-                }
-            });
-        }).on('error', (err) => {
-            console.error(err);
-        });
-    }
+      openConnections.forEach(function(res) {
+        res.write('data:' + JSON.stringify(data) + '\n\n');
+      });
+    };
     setInterval(() => {
         if (openConnections.length > 0) broadcast(openConnections.length);
-    }, 10000);
-}
+    }, 1000*3);
+};

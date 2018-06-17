@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import { Monitor } from './Monitor.jsx';
+import { About } from './About.jsx';
+
 class Intro extends React.Component {
     state = {
         items: [],
@@ -28,13 +31,10 @@ class Intro extends React.Component {
                         items.slice(0).reverse().map((item, index) =>
                             <li key={index}
                                 className={'intro__link'}
-                                data-href={item.url}
-                                data-click={item.onclick || null}
                             >
-                                <span>{item.title}</span>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
                                 <span className="descr">{item.details}</span>
-                                <span className="descr see">see alive</span>
-                                {item.repo && <span className="descr">see also: <a className="repo" href={item.repo} target="_blank">{item.repo}</a></span>}
+                                {item.repo && <span className="descr">see also: <a className="repo" href={item.repo} target="_blank" rel="noopener noreferrer">{item.repo}</a></span>}
                                 <div className={'intro__tags'}>
                                     {item.tags.map((tag, index) =>
                                         <span key={index}>{tag}</span>
@@ -44,6 +44,8 @@ class Intro extends React.Component {
                         )
                     }
                 </ul>
+              <Monitor/>
+              <About/>
             </div>
         )
     }

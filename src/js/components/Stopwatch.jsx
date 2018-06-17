@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import StopwatchDisplay from './StopwatchDisplay.jsx';
 import StopwatchHistory from './StopwatchHistory.jsx';
 
@@ -13,7 +14,7 @@ class Stopwatch extends React.Component {
             currentTimeMin: 0
         }
     }
-
+    
     formatTime = (val, ...rest) => {
         let value = val.toString();
         if (value.length < 2) {
@@ -60,11 +61,11 @@ class Stopwatch extends React.Component {
     render() {
         return (
             <div className={'stopwatch'}>
-                <h2>Stopwatch</h2>
+                <h2 ref="header">Stopwatch</h2>
                 {this.state.running === false && <button onClick={this.start}>START</button>}
                 {this.state.running === true && <button onClick={this.stop}>STOP</button>}
                 <button onClick={this.reset}>RESET</button>
-                <StopwatchDisplay {...this.state} formatTime={this.formatTime}/>
+                <StopwatchDisplay ref="display" {...this.state} formatTime={this.formatTime}/>
                 <StopwatchHistory {...this.state} formatTime={this.formatTime}/>
             </div>
         )
