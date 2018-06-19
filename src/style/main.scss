@@ -94,7 +94,11 @@ button {
             font-size: 10px;
             border-radius: 5px;
             border: 1px solid $primary-color;
-            background-color: lighten($extra-color, 30%)
+            background-color: lighten($extra-color, 30%);
+
+            &.inactive {
+                background-color: #ffffff;
+            }
         }
     }
 }
