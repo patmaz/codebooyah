@@ -1,0 +1,56 @@
+@import './reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Roboto+Mono:300|Roboto:300,300i');
+$primary-color: #141823;
+$extra-color: #227c96;
+
+html {
+  height: 100%;
+  font-size: 10px;
+}
+
+body {
+  min-height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  color: $primary-color;
+  z-index: 1;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+a {
+  text-decoration: none;
+  color: $extra-color;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.App {
+  &-header {
+    text-align: center;
+    margin: 1.5rem;
+    font-size: 1.8rem;
+
+    &-code {
+      font-size: 1.2rem;
+      margin-left: 1.5rem;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    &-booyah {
+      color: $extra-color;
+      display: block;
+      margin-top: -1.5rem;
+      margin-right: -1.2rem;
+      font-size: 5rem;
+      font-family: 'Covered By Your Grace', cursive;
+    }
+  }
+}
