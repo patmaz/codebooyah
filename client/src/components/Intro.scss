@@ -1,0 +1,44 @@
+$primary-color: #141823;
+$extra-color: #227c96;
+
+.intro {
+  text-align: center;
+
+  span {
+    display: block;
+  }
+
+  .descr {
+    font-size: 1rem;
+    margin-top: .5rem;
+  }
+
+  &__link {
+    margin: 1.5rem auto;
+    padding: 1.5rem;
+    display: block;
+    width: 80%;
+    font-size: 2.5rem;
+    position: relative;
+    font-family: 'Roboto Mono', cursive;
+  }
+
+  &__tags {
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+
+    span {
+      display: inline-block;
+      margin: .2rem .5rem;
+      padding: 2px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid $primary-color;
+      background-color: lighten($extra-color, 30%);
+
+      &.inactive {
+        background-color: #ffffff;
+      }
+    }
+  }
+}

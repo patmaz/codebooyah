@@ -32,10 +32,20 @@ a {
   }
 }
 
+p {
+  font-size: 1.5rem;
+  margin: 15px 0;
+
+  &.small {
+    font-size: 1rem;
+  }
+}
+
 .App {
   &-header {
+    display: block;
     text-align: center;
-    margin: 1.5rem;
+    margin: 1.5rem auto;
     font-size: 1.8rem;
 
     &-code {

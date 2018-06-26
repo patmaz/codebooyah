@@ -3,7 +3,7 @@ import React from 'react';
 export class Monitor extends React.Component {
   state = {
     data: null,
-    isVisible: false,
+    isVisible: true,
   };
 
   componentDidMount() {
