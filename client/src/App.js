@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import { Intro } from './components/Intro';
+import { Monitor } from './components/Monitor';
 import { About } from './components/About';
 import './App.scss';
 
@@ -18,6 +18,7 @@ class App extends Component {
         </div>
         <div className="intro">
           <Intro/>
+          <Monitor/>
           <About/>
         </div>
       </div>

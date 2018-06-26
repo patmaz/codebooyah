@@ -1,0 +1,30 @@
+$primary-color: #141823;
+$extra-color: #227c96;
+
+#monitor {
+  position: fixed;
+  left: -237px;
+  top: 40%;
+  background-color: #fff;
+  border: 1px solid $primary-color;
+  border-left: none;
+  height: 20rem;
+  width: 21rem;
+  padding: 5px 40px 5px 5px;
+  font-family: 'Roboto Mono', cursive;
+  transition: all 0.5s;
+  text-align: left;
+
+  &.active {
+    left: 0;
+  }
+
+  h2 {
+    transform: rotate(90deg);
+    position: absolute;
+    right: -64px;
+    top: 96px;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+}
