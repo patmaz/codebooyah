@@ -8,15 +8,19 @@ const config = require('../config');
 firebase.initializeApp(config.firebase);
 const intro = firebase.database().ref('introv2/');
 const subscriptions = firebase.database().ref('sub/');
+const refMsg = firebase.database().ref('subMsg/');
 
-intro
+let refMsgCounter = 0;
+refMsg
   .on('value', () => {
-    fetchPushSub(sendPush);
+    if (refMsgCounter > 0) {
+      fetchPushSub(sendPush);
+    }
+    refMsgCounter++;
   });
 
 fetchPushSub = cb => {
   const ref = subscriptions;
-  const refMsg = firebase.database().ref('subMsg');
 
   refMsg
     .once('value')
@@ -94,45 +98,6 @@ function routes(app) {
       })
       .catch(err => res.status(500).json(err));
   });
-
-  const savePushSub = ({ sub, key }, cb) => {
-    const ref = subscriptions;
-
-    if (key !== null) {
-      const item = ref.child(key);
-      item.update(
-        {
-          endpoint: sub.endpoint,
-          keys: sub.keys,
-        },
-        err => {
-          if (err) {
-            return cb(false, err);
-          }
-          cb(true, { data: 'success' });
-        },
-      );
-      return;
-    }
-
-    const refPush = firebase
-      .database()
-      .ref('sub')
-      .push();
-    refPush.set(
-      {
-        endpoint: sub.endpoint,
-        keys: sub.keys,
-      },
-      err => {
-        if (err) {
-          return cb(false, err);
-        }
-
-        cb(true, { subDbKey: refPush.key });
-      },
-    );
-  };
 
   app.post('/api/push/sub', (req, res) => {
     const sub = req.body;

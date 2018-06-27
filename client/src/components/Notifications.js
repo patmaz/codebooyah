@@ -92,7 +92,7 @@ export class Notifications extends React.Component {
   render() {
     return (
       <div className="notifications">
-        <p className="small">notification status: {this.status}</p>
+        <p>notification status: {this.status}</p>
       </div>
     );
   }
