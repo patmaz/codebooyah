@@ -101,7 +101,6 @@ function routes(app) {
 
   app.post('/api/push/sub', (req, res) => {
     const sub = req.body;
-    console.log(req.body);
 
     if (!sub) {
       return res.status(422).json({ data: 'no data provided' });
