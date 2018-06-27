@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Intro } from './components/Intro';
 import { Monitor } from './components/Monitor';
 import { About } from './components/About';
+import { Notifications } from './components/Notifications';
 import './App.scss';
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
           <Intro/>
           <Monitor/>
           <About/>
+          <Notifications/>
         </div>
       </div>
     );

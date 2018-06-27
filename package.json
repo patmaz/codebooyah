@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.16.2",
-    "body-parser": "^1.16.0",
+    "body-parser": "^1.18.3",
     "ejs": "^2.5.5",
     "express": "^4.14.1",
     "firebase": "^4.3.0",
@@ -30,6 +30,8 @@
     "morgan": "^1.8.2",
     "socket.io": "^1.7.3",
     "sse": "0.0.6",
+    "urlsafe-base64": "^1.0.0",
+    "web-push": "^3.3.2",
     "websocket": "^1.0.24",
     "ws": "^3.1.0"
   },

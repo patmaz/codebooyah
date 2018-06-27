@@ -3,6 +3,7 @@
 // ############### web server by express
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
@@ -18,6 +19,8 @@ if (process.env.HTTPS === 'yes') {
 } else {
   server = require('http').Server(app);
 }
+
+app.use(bodyParser.json({ type: '*/*', limit: '10000kb' }));
 
 //modules
 const routes = require('./modules/routes');
