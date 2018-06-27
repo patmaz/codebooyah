@@ -45,12 +45,12 @@ p {
   &-header {
     display: block;
     text-align: center;
-    margin: 1.5rem auto;
+    margin: 1.5rem auto 3rem;
     font-size: 1.8rem;
 
     &-code {
       font-size: 1.2rem;
-      margin-left: 1.5rem;
+      margin-left: -1rem;
       font-family: 'Roboto Mono', monospace;
     }
 
