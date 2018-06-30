@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { Link, Route } from 'react-router-dom';
 
 import './Intro.scss';
+import { Code } from './Code';
 
 export class Intro extends React.Component {
   state = {
@@ -51,6 +53,7 @@ export class Intro extends React.Component {
     return (
       <div className={'intro'}>
         <p>Welcome to my JavaScript sandbox. Have fun with:</p>
+        <Route path="/code" component={Code} />
         {!loading && (
           <div className={'intro__tags'}>
             <p className="small">filter by tags:</p>
@@ -89,9 +92,13 @@ export class Intro extends React.Component {
             .reverse()
             .map((item, index) => (
               <li key={index} className={'intro__link'}>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
-                  {item.title}
-                </a>
+                {item.embed ? (
+                  <Link to={`/code?url=${item.embed}`}>{item.title}</Link>
+                ) : (
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    {item.title}
+                  </a>
+                )}
                 <span className="descr">{item.details}</span>
                 {item.repo && (
                   <span className="descr">

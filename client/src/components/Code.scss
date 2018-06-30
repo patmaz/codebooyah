@@ -1,0 +1,36 @@
+.codeWrapper {
+  width: 600px;
+  height: 80vh;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  border: 1px solid #000000;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  z-index: 2;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(156, 153, 151, 0.7);
+}
+
+.close {
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  color: #000000;
+  padding: .5rem;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -74,7 +74,6 @@ export class Notifications extends React.Component {
             });
           })
           .catch(err => {
-            console.log(err)
             runInAction(() => {
               this.status = 'service worker registration failed';
             });

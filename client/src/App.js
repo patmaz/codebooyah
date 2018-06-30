@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Intro } from './components/Intro';
 import { Monitor } from './components/Monitor';
@@ -18,10 +19,12 @@ class App extends Component {
           </h1>
         </div>
         <div className="intro">
-          <Intro/>
-          <Monitor/>
-          <About/>
-          <Notifications/>
+          <Router>
+            <Intro />
+          </Router>
+          <Monitor />
+          <About />
+          <Notifications />
         </div>
       </div>
     );
