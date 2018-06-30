@@ -35,10 +35,6 @@ app.use(
     maxAge: 86400000,
   }),
 );
-app.use(
-  '/oldstatic',
-  express.static(path.join(__dirname, '/public'), { maxAge: 86400000 }),
-);
 
 // security
 app.use(helmet());

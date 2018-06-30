@@ -118,17 +118,12 @@ function routes(app) {
   });
 
   // new client
-  app.get('/', (reg, res) => {
-    res.sendFile(path.join(appDir + '/client/build/index.html'));
-  });
-
   app.get('/sw', (reg, res) => {
     res.sendFile(path.join(appDir + '/client/build/sw.js'));
   });
 
-  // old client
-  app.get('/old/', (req, res) => {
-    res.sendFile(path.join(appDir + '/public/index.html'));
+  app.get('/*', (reg, res) => {
+    res.sendFile(path.join(appDir + '/client/build/index.html'));
   });
 }
 
