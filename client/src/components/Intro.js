@@ -1,31 +1,27 @@
 import React from 'react';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 import './Intro.scss';
 import { Code } from './Code';
 
-@inject('store') @observer
-export class Intro extends React.Component {
+class IntroComp extends React.Component {
   @observable tags = observable.array();
   @observable filters = observable.array();
 
   componentDidMount() {
     const { store } = this.props;
-    store.getIntroItems()
-      .then(
-        () => {
-          store.introItems.forEach(item => {
-            item.tags.forEach(tag => {
-              if (this.tags.includes(tag)) {
-                return;
-              }
-              this.tags.push(tag);
-            });
-          });
-        }
-      );
+    store.getIntroItems().then(() => {
+      store.introItems.forEach(item => {
+        item.tags.forEach(tag => {
+          if (this.tags.includes(tag)) {
+            return;
+          }
+          this.tags.push(tag);
+        });
+      });
+    });
   }
 
   toggleFilter = e => {
@@ -52,9 +48,7 @@ export class Intro extends React.Component {
               .map(tag => (
                 <span
                   style={{ cursor: 'pointer' }}
-                  className={
-                    this.filters.includes(tag) ? 'active' : 'inactive'
-                  }
+                  className={this.filters.includes(tag) ? 'active' : 'inactive'}
                   onClick={this.toggleFilter}
                   key={tag}
                   data-tag={tag}
@@ -116,3 +110,6 @@ export class Intro extends React.Component {
     );
   }
 }
+
+// https://github.com/ReactTraining/react-router/issues/4781
+export const Intro = withRouter(inject('store')(observer(IntroComp)));

@@ -21,7 +21,7 @@ export class Code extends React.Component {
             frameBorder="0"
             height="100%"
             width="90%"
-            sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin allow-camera"
+            sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
           />
         </div>
       </div>
