@@ -40,10 +40,10 @@ export class Monitor extends React.Component {
     return (
       <div id="monitor" className={isVisible ? 'active' : 'noop'} onClick={this.toggleShow}>
         <h2>server-sent events</h2>
-        <p className="small">{data && data.usersNo || '...'} user(s) online</p>
-        <p className="small">server uptime: {data && data.uptime || '...'} sec</p>
-        <p className="small">memory usage: {data && data.memo || '...'} sec</p>
-        <p className="small">platform: {data && data.platform || '...'}</p>
+        <p className="small">{data && (data.usersNo || '...')} user(s) online</p>
+        <p className="small">server uptime: {data && (data.uptime || '...')} sec</p>
+        <p className="small">memory usage: {data && (data.memo || '...')} sec</p>
+        <p className="small">platform: {data && (data.platform || '...')}</p>
       </div>
     )
   }
