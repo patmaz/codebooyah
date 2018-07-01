@@ -77,8 +77,16 @@ class IntroComp extends React.Component {
             .reverse()
             .map((item, index) => (
               <li key={index} className={'intro__link'}>
-                {item.embed ? (
-                  <Link to={`/code?url=${item.embed}`}>{item.title}</Link>
+                {item.embed || item.component ? (
+                  <Link
+                    to={
+                      item.embed
+                        ? `/code?url=${item.embed}`
+                        : `/code?component=${item.component}`
+                    }
+                  >
+                    {item.title}
+                  </Link>
                 ) : (
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
                     {item.title}

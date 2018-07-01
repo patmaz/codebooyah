@@ -1,9 +1,39 @@
 import React from 'react';
 
+import './SW.scss';
+
 export class SW extends React.Component {
   state = {
-    count: 10000,
+    count: 3000,
     msg: 'message passed to SW',
+  };
+
+  componentDidMount() {
+    this.startSpinner();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.spin);
+  }
+
+  heavyFunc = number => {
+    let count = 0;
+    while (count < number) {
+      console.log('executing in app...');
+      count++;
+    }
+  };
+
+  startSpinner = () => {
+    this.spin && clearInterval(this.spin);
+    let deg = 0;
+    this.spin = setInterval(() => {
+      if (deg === 361) {
+        deg = 0;
+      }
+      this.spinner.style.transform = `rotate(${deg}deg)`;
+      deg++;
+    }, 1000 / 30);
   };
 
   triggerFuncInSW = () => {
@@ -19,7 +49,7 @@ export class SW extends React.Component {
           func: `
           let count = 0;
           while (count < this.count) {
-          console.log('executing...');
+          console.log('executing in SW...');
           count++
           }
         `,
@@ -35,6 +65,10 @@ export class SW extends React.Component {
   };
 
   setCount = e => {
+    const value = e.target.value;
+    if (value > 5000) {
+      return;
+    }
     this.setState({
       count: e.target.value,
     });
@@ -44,24 +78,36 @@ export class SW extends React.Component {
     return (
       <div>
         <p>
-          This is a service worker sample. When you will click the trigger
+          This is a service worker example. When you will click the trigger
           button, a while loop will be repeated{' '}
           <input
             type="number"
             onChange={this.setCount}
-            defaultValue={this.state.count}
+            value={this.state.count}
           />{' '}
-          times. However you will not notice any lags in UI, because the
-          function will be executed in background by a service worker. To see
-          more details you can oped dev tools console. After all, the service
-          worker will return{' '}
+          times. However you will not notice any serious lags in UI (look at the
+          spinner controlled by js), because the function will be executed in a
+          background/separate thread, by a service worker. To see more details,
+          you can open dev tools console. After all, the service worker will
+          return{' '}
           <input
             type="text"
             onChange={this.setMessage}
             defaultValue={this.state.msg}
           />
+          in console.
         </p>
-        <button onClick={this.triggerFuncInSW}>trigger</button>
+        <button onClick={this.triggerFuncInSW}>trigger in SW</button>
+        <p>
+          Now you can trigger the very same function in this web app. Lags will
+          appear, the app may be unresponsive for a while.
+        </p>
+        <button onClick={() => this.heavyFunc(this.state.count)}>
+          trigger in app
+        </button>
+        <div className="circle" ref={ref => (this.spinner = ref)}>
+          {' '}
+        </div>
       </div>
     );
   }
