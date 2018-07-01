@@ -1,68 +1,59 @@
 import React from 'react';
-import axios from 'axios';
+import { observable } from 'mobx';
+import { observer, inject } from 'mobx-react';
 import { Link, Route } from 'react-router-dom';
 
 import './Intro.scss';
 import { Code } from './Code';
 
+@inject('store') @observer
 export class Intro extends React.Component {
-  state = {
-    items: [],
-    loading: true,
-    tags: [],
-    filters: [],
-  };
+  @observable tags = observable.array();
+  @observable filters = observable.array();
 
   componentDidMount() {
-    axios.get('/api/intro').then(data => {
-      this.setState({
-        items: data.data,
-        loading: false,
-      });
-
-      this.state.items.forEach(item => {
-        item.tags.forEach(tag => {
-          if (this.state.tags.includes(tag)) {
-            return;
-          }
-          this.setState({
-            tags: [...this.state.tags, tag],
+    const { store } = this.props;
+    store.getIntroItems()
+      .then(
+        () => {
+          store.introItems.forEach(item => {
+            item.tags.forEach(tag => {
+              if (this.tags.includes(tag)) {
+                return;
+              }
+              this.tags.push(tag);
+            });
           });
-        });
-      });
-    });
+        }
+      );
   }
 
   toggleFilter = e => {
     const tag = e.target.getAttribute('data-tag');
-    const index = this.state.filters.indexOf(tag);
+    const index = this.filters.indexOf(tag);
     if (index !== -1) {
-      this.setState({
-        filters: this.state.filters.filter(f => f !== tag),
-      });
+      this.filters.replace(this.filters.filter(f => f !== tag));
       return;
     }
 
-    this.setState({
-      filters: [...this.state.filters, tag],
-    });
+    this.filters.push(tag);
   };
 
   render() {
-    const { items, loading } = this.state;
+    const { store } = this.props;
     return (
       <div className={'intro'}>
         <p>Welcome to my JavaScript sandbox. Have fun with:</p>
         <Route path="/code" component={Code} />
-        {!loading && (
+        {!store.introItemsLoading && (
           <div className={'intro__tags'}>
             <p className="small">filter by tags:</p>
-            {this.state.tags
+            {this.tags
               .map(tag => (
                 <span
                   style={{ cursor: 'pointer' }}
                   className={
-                    this.state.filters.includes(tag) ? 'active' : 'inactive'
+                    this.filters.includes(tag) ? 'active' : 'inactive'
                   }
                   onClick={this.toggleFilter}
                   key={tag}
@@ -72,22 +63,22 @@ export class Intro extends React.Component {
                 </span>
               ))
               .reverse()}
-            {this.state.filters.length > 0 && (
-              <p className="small">{`Mini-projects related to ${this.state.filters.join(
+            {this.filters.length > 0 && (
+              <p className="small">{`Mini-projects related to ${this.filters.join(
                 ' OR ',
               )}:`}</p>
             )}
           </div>
         )}
-        {loading && <p>loading stuff...</p>}
+        {store.introItemsLoading && <p>loading stuff...</p>}
         <ul>
-          {items
+          {store.introItems
             .slice(0)
             .filter(i => {
-              if (this.state.filters.length === 0) {
+              if (this.filters.length === 0) {
                 return true;
               }
-              return this.state.filters.some(f => i.tags.includes(f));
+              return this.filters.some(f => i.tags.includes(f));
             })
             .reverse()
             .map((item, index) => (

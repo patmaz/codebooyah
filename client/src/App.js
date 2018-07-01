@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Provider } from 'mobx-react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { stores } from './stores/store';
 import { Intro } from './components/Intro';
 import { Monitor } from './components/Monitor';
 import { About } from './components/About';
@@ -19,9 +21,11 @@ class App extends Component {
           </h1>
         </div>
         <div className="intro">
-          <Router>
-            <Intro />
-          </Router>
+          <Provider store={stores.mainStore}>
+            <Router>
+              <Intro />
+            </Router>
+          </Provider>
           <Monitor />
           <About />
           <Notifications />
