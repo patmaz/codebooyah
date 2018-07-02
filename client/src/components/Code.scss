@@ -1,5 +1,6 @@
 .codeWrapper {
   width: 600px;
+  max-width: 90vw;
   height: 80vh;
   position: fixed;
   top: 50%;
@@ -9,6 +10,7 @@
   padding: 1.5rem;
   background-color: #ffffff;
   z-index: 2;
+  overflow: scroll;
 }
 
 .overlay {
