@@ -122,6 +122,10 @@ function routes(app) {
     res.sendFile(path.join(appDir + '/client/build/sw.js'));
   });
 
+  app.get('/ww.js', (reg, res) => {
+    res.sendFile(path.join(appDir + '/client/build/ww.js'));
+  });
+
   app.get('/*', (reg, res) => {
     res.sendFile(path.join(appDir + '/client/build/index.html'));
   });
