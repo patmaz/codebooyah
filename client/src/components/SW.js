@@ -78,8 +78,8 @@ export class SW extends React.Component {
     return (
       <div>
         <p>
-          This is a service worker example. When you will click the trigger
-          button, a while loop will be repeated{' '}
+          This is a service worker example, mainly for Chrome browser. When you
+          click the trigger button, a while loop will be repeated{' '}
           <input
             type="number"
             onChange={this.setCount}
@@ -99,8 +99,9 @@ export class SW extends React.Component {
         </p>
         <button onClick={this.triggerFuncInSW}>trigger in SW</button>
         <p>
-          Now you can trigger the very same function in this web app. Lags will
-          appear, the app may be unresponsive for a while.
+          Now you can trigger the very same function in this web app. Lags may
+          appear, the app may be unresponsive for a while (if not, probably your
+          hardware is superb ;)).
         </p>
         <button onClick={() => this.heavyFunc(this.state.count)}>
           trigger in app
