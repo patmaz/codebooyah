@@ -18,6 +18,8 @@ module.exports = function(app) {
 
         openConnections.push(res);
 
+        console.log('+++ codebooyah connections: ' + openConnections.length);
+
         req.on("close", function() {
             let toRemove;
             for (let j = 0 ; j < openConnections.length ; j++) {
@@ -42,6 +44,8 @@ module.exports = function(app) {
       });
     };
     setInterval(() => {
-        if (openConnections.length > 0) broadcast(openConnections.length);
+        if (openConnections.length > 0) {
+            broadcast(openConnections.length);
+        }
     }, 1000*3);
 };
