@@ -20,6 +20,7 @@ if (process.env.HTTPS === 'yes') {
   server = require('http').Server(app);
 }
 
+app.set('trust proxy', 1);
 app.use(bodyParser.json({ type: '*/*', limit: '10000kb' }));
 
 //modules
