@@ -1,9 +1,17 @@
 const firebase = require('firebase');
 const path = require('path');
 const webPush = require('web-push');
+const rateLimit = require("express-rate-limit");
+const cors = require("cors");
+
 const appDir = path.dirname(require.main.filename);
 
 const config = require('../config');
+
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 20,
+});
 
 firebase.initializeApp(config.firebase);
 const intro = firebase.database().ref('introv2/');
@@ -90,6 +98,10 @@ savePushSub = ({ sub, key }, cb) => {
 };
 
 function routes(app) {
+  app.get('/api/ping', cors(), limiter, (req, res) => {
+    res.json({ data: 'pong' });
+  });
+
   app.get('/api/intro', (req, res) => {
     intro
       .once('value')
