@@ -103,6 +103,7 @@ function routes(app, state) {
       data: 'pong',
       currentConnections: state.connections(),
       stats: state.stats(),
+      last5Visits: state.last5Visits(),
     });
   });
 
