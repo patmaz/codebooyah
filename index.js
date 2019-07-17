@@ -7,6 +7,11 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
+
+// state
+const Observer = require('./store/Observer');
+const connectionsObserver = new Observer();
+
 let server;
 
 if (process.env.HTTPS === 'yes') {
@@ -45,9 +50,9 @@ app.use(morgan('combined'));
 
 // modules
 // mind the sequence because of react router
-sse(app);
+sse(app, connectionsObserver);
 chat(server);
-routes(app);
+routes(app, connectionsObserver);
 chatVideo(server);
 
 server.listen(8000);

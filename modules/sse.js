@@ -1,7 +1,7 @@
 "use strict";
 const SSE = require('sse');
 
-module.exports = function(app) {
+module.exports = function(app, connectionsObserver) {
     const openConnections = [];
 
     app.get('/sse', function(req, res) {
@@ -47,5 +47,6 @@ module.exports = function(app) {
         if (openConnections.length > 0) {
             broadcast(openConnections.length);
         }
+        connectionsObserver.broadcast(openConnections.length);
     }, 1000*3);
 };
