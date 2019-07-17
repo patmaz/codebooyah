@@ -1,7 +1,7 @@
 "use strict";
 const SSE = require('sse');
 
-module.exports = function(app, connectionsObserver) {
+module.exports = function(app, state) {
     const openConnections = [];
 
     app.get('/sse', function(req, res) {
@@ -17,6 +17,7 @@ module.exports = function(app, connectionsObserver) {
         res.write('\n');
 
         openConnections.push(res);
+        state.statsObserver.broadcast(true);
 
         console.log('+++ codebooyah connections: ' + openConnections.length);
 
@@ -47,6 +48,6 @@ module.exports = function(app, connectionsObserver) {
         if (openConnections.length > 0) {
             broadcast(openConnections.length);
         }
-        connectionsObserver.broadcast(openConnections.length);
+        state.connectionsObserver.broadcast(openConnections.length);
     }, 1000*3);
 };

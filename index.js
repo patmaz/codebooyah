@@ -8,9 +8,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 
-// state
-const Observer = require('./store/Observer');
-const connectionsObserver = new Observer();
+const state = require('./modules/state');
 
 let server;
 
@@ -50,9 +48,9 @@ app.use(morgan('combined'));
 
 // modules
 // mind the sequence because of react router
-sse(app, connectionsObserver);
+sse(app, state);
 chat(server);
-routes(app, connectionsObserver);
+routes(app, state);
 chatVideo(server);
 
 server.listen(8000);

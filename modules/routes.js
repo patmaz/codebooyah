@@ -97,13 +97,12 @@ savePushSub = ({ sub, key }, cb) => {
   );
 };
 
-function routes(app, connectionsObserver) {
-  let connections = 0;
-  connectionsObserver.subscribe((numberOfConnections) => connections = numberOfConnections);
+function routes(app, state) {
   app.get('/api/ping', cors(), limiter, (req, res) => {
     res.json({
       data: 'pong',
-      connections,
+      currentConnections: state.connections(),
+      stats: state.stats(),
     });
   });
 
