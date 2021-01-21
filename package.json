@@ -34,7 +34,7 @@
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",
     "react-router-dom": "^4.3.1",
-    "socket.io": "^1.7.3",
+    "socket.io": "^2.4.0",
     "sse": "0.0.6",
     "urlsafe-base64": "^1.0.0",
     "web-push": "^3.3.2",
